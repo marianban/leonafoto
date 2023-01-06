@@ -1,0 +1,47 @@
+.service-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(
+    calc(130px + 30ch + 2rem), 1fr));
+  grid-gap: 4rem;
+  margin-top: 2rem;
+}
+
+.service-item {
+  min-width: fit-content;
+  display: grid;
+  gap: 2rem;
+  grid-template-areas:
+    "img title"
+    "img description";
+  grid-template-columns: 130px minmax(30ch, 1fr);
+}
+
+.service-item picture {
+  grid-area: img;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.service-item picture {
+  width: auto;
+  object-fit: cover;
+}
+
+.service-item h3 {
+  grid-area: title;
+  font-size: 2.4rem;
+  font-weight: 400;
+  margin: 0;
+  color: #3B3C44;
+  opacity: 0.8;
+}
+
+.service-item p {
+  grid-area: description;
+  font-size: 1.6rem;
+  font-weight: 300;
+  margin: 0;
+}

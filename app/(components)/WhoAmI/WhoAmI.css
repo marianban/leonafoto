@@ -1,0 +1,30 @@
+section.who-am-i {
+  background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 87.55%,
+      rgba(0, 0, 0, 0.15) 100%
+    ),
+    #2d3138;
+  z-index: 2;
+}
+
+.who-am-i .content {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  overflow: visible;
+}
+
+img.author {
+  position: absolute;
+  left: 2rem;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 0 0 2rem;
+  mix-blend-mode: lighten;
+  margin-top: -6rem;
+}
+
+.who-am-i .text {
+  max-width: 60%;
+}

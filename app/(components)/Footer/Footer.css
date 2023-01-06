@@ -1,0 +1,103 @@
+footer ul, footer menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0;
+  margin: 0;
+  line-height: 1.5em;
+}
+
+footer menu {
+  gap: 0.5rem;
+}
+
+footer {
+  padding-top: 3rem;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 87.55%, rgba(0, 0, 0, 0.15) 100%), #2D3138;
+  color: rgb(255, 255, 255, 0.9);
+}
+
+footer a {
+  color: rgb(255, 255, 255, 0.9);
+}
+
+footer h3 {
+  margin-bottom: 1rem;
+  font-family: questa-grande, serif;
+  font-weight: 700;
+  font-size: 2.4rem;
+}
+
+footer label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+footer label input, footer label textarea {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgb(255, 255, 255, 0.9);
+  color: rgb(255, 255, 255, 0.9);
+  background: transparent;
+}
+
+footer button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgb(255, 255, 255, 0.9);
+  color: rgb(255, 255, 255, 0.9);
+  background: transparent;
+  cursor: pointer;
+}
+
+footer button:hover {
+  background: rgb(255, 255, 255, 0.9);
+  color: #2D3138;
+}
+
+footer button:active {
+  background: rgb(255, 255, 255, 0.8);
+  color: #2D3138;
+}
+
+.footer__items {
+  display: grid;
+  grid-template-areas: "menu address contact write-me" "menu map map write-me";
+  grid-gap: 4rem;
+  width: 100%;
+}
+
+.footer__item.menu {
+  grid-area: menu;
+}
+
+.footer__item.menu a {
+  text-decoration: none;
+}
+
+.footer__item.address {
+  grid-area: address;
+}
+
+.footer__item.contact {
+  grid-area: contact;
+}
+
+.footer__item.write-me {
+  grid-area: write-me;
+}
+
+.footer__item.map {
+  grid-area: map;
+}
+
+.footer__item.map iframe {
+  width: 100%;
+  height: 300px;
+  border-radius: 1rem;
+}

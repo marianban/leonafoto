@@ -1,0 +1,74 @@
+.photography h2 {
+  mix-blend-mode: multiply;
+}
+
+.photography {
+  background: #d4d4d4;
+  background-image: url(/images/CaameraImg-bg.jpg);
+  background-image: -webkit-image-set(
+    url(/images/CameraImg-bg.jpg) 1x,
+    url(/images/CameraImg-2-bg.jpg) 2x
+  );
+  background-image: image-set(
+    url(/images/CameraImg-bg.jpg) 1x,
+    url(/images/CameraImg-2-bg.jpg) 2x
+  );
+  background-repeat: repeat-x;
+  background-size: contain;
+  background-position: left 10% top 3rem;
+  position: relative;
+}
+
+.photography::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100%;
+  background-image: url(/images/CaameraImg-bg-r.jpg);
+  background-image: -webkit-image-set(
+    url(/images/CameraImg-bg-r.jpg) 1x,
+    url(/images/CameraImg-2-bg-r.jpg) 2x
+  );
+  background-image: image-set(
+    url(/images/CameraImg-bg-r.jpg) 1x,
+    url(/images/CameraImg-2-bg-r.jpg) 2x
+  );
+  background-repeat: repeat-x;
+  background-size: contain;
+  background-position: left 0% top 3rem;
+}
+
+.photography .content {
+  position: relative;
+  /* background-blend-mode: overlay; */
+  background-image: url(/images/CaameraImg-bg.jpg);
+  background-image: -webkit-image-set(
+    url(/images/CameraImg.jpg) 1x,
+    url(/images/CameraImg-2.jpg) 2x
+  );
+  /* This will be useful if image-set gets into the platform, unprefixed.
+      Also include other prefixed versions of this */
+  background-image: image-set(
+    url(/images/CameraImg.jpg) 1x,
+    url(/images/CameraImg-2.jpg) 2x
+  );
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right 0% top 3rem;
+}
+
+.photography p {
+  max-width: 80ch;
+}
+
+/* @media screen and (max-width: 1279px) {
+  .photography .content {
+    background-position: right -30% top 3rem;
+  }
+
+  .photography p {
+    max-width: 60ch;
+  }
+} */
