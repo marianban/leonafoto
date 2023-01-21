@@ -1,0 +1,132 @@
+html {
+  font-size: 62.5%;
+  font-family: questa-sans, sans-serif;
+  font-weight: 400;
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+body {
+  font-style: normal;
+  background-color: #fff;
+  font-size: 1.6rem;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+header {
+  background-color: rgba(255, 255, 255, 0.8);
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+  padding: 5.2rem 2.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  /* padding: 5.2rem clamp(1.5rem, 1.95vw, 2.5rem); */
+}
+
+header .logo {
+  opacity: 0.8;
+}
+
+header .logo a {
+  font-weight: 400;
+  text-decoration: none;
+  font-size: clamp(2.6rem, 2.28vw, 3.6rem);
+  color: #25282E;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+header .logo a svg {
+  width: clamp(2.8rem, 2.5vw, 3.2rem);
+  margin-bottom: 4px;
+}
+
+header menu {
+  display: flex;
+  list-style: none;
+  gap: clamp(1.4rem, 4.06vw, 5.2rem);
+  font-size: clamp(1.8rem, 1.8vw, 2.4rem);
+}
+
+header menu a {
+  text-decoration: none;
+  color: #25282E;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+header menu li {
+  position: relative;
+  height: 4.1rem;
+  line-height: 4.1rem;
+  white-space: nowrap;
+}
+
+header menu li a {
+  display: inline-block;
+  padding: 0 clamp(0.7rem, 1.09vw, 1.4rem);
+}
+
+header menu li.active a {
+  opacity: 1;
+  position: relative;
+}
+
+header menu li.active::before {
+  content: '';
+  position:absolute;
+  width: 100%;
+  background: #F8F7F7;
+  border-radius: 1rem;
+  box-shadow: inset 0px 3px 6px rgba(0, 0, 0, 0.15);
+  height: 4.1rem;
+}
+
+header menu li.contact {
+  border: 1px solid #25282E;
+}
+
+/* Sections */
+
+section, footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+section .content, footer .content {
+  max-width: 1280px;
+  overflow: hidden;
+  padding: 2rem 2.5rem 4rem 2.5rem;
+  width: 100%;
+}
+
+section h2 {
+  color: #58595b;
+  font-size: 4.8rem;
+  font-family: questa-grande, serif;
+  font-weight: 700;
+  width: 100%;
+  border-bottom: 3px solid #ebebec;
+  margin-bottom: 3rem;
+}
+
+section.dark h2 {
+  color: #aeafb2;
+  border-color: #3b3d43;
+}
+
+p + p {
+  margin-top: 1rem;
+}
+
+section.dark p {
+  color: rgb(255, 255, 255, 0.9);
+}

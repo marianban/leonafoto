@@ -1,0 +1,30 @@
+body {
+  background-color: #ddd;
+}
+
+main {
+  padding: 3rem;
+}
+
+.drop-target {
+  background-color: #f0f0f0;
+  border: 1px dashed #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%;
+  height: 20rem;
+  display: grid;
+  place-items: center;
+}
+
+.drop-target__msg {
+  color: #bbb;
+  display: grid;
+  place-items: center;
+}
+
+dialog {
+  top: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+}

@@ -1,0 +1,45 @@
+.price-list__items {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.price-list__item {
+  display: grid;
+  grid-template-areas: "marker title price" "marker description price";
+  grid-template-columns: 33px 1fr 1fr;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+  list-style: none;
+}
+
+.price-list__item::before {
+  grid-area: marker;
+  background-image: url('/images/gift.svg');
+  content: '';
+  width: 26px;
+  height: 26px;
+  display: block;
+  opacity: 0.4;
+}
+
+.price-list__item .title {
+  grid-area: title;
+  font-size: 2.2rem;
+  line-height: 1em;
+}
+
+.price-list__item .description {
+  grid-area: description;
+  color: rgba(0, 0, 0, 0.7);
+  padding-bottom: 0.5rem;
+}
+
+.price-list__item .price {
+  grid-area: price;
+  display: flex;
+  align-self: center;
+  justify-content: flex-end;
+  font-weight: 700;
+  font-size: 2.4rem;
+}
