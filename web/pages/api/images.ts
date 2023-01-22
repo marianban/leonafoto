@@ -11,7 +11,7 @@ type Data =
 
 const prisma = new PrismaClient();
 
-const getImagesByCursor = async (pageSize: number, id?: number) => {
+export const getImagesByCursor = async (pageSize: number, id?: number) => {
   const images = await prisma.image.findMany({
     cursor: id
       ? {

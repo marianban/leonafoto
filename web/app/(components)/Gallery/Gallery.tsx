@@ -1,43 +1,21 @@
 import imgSrc from './linkavianoce.jpg';
 import './Gallery.css';
 
-import Image, { StaticImageData } from 'next/image';
+import { getImagesByCursor } from '../../../pages/api/images';
+import { ServerGalleryImage } from './ServerGalleryImage';
+import { GalleryNextImages } from './GalleryNextImages';
 
-type GalleryItemProps = {
-  src: StaticImageData;
-};
-
-const GalleryItem = ({ src }: GalleryItemProps) => {
-  return (
-    <picture className="gallery__item">
-      <Image
-        src={src}
-        alt="Fotka"
-        fill={true}
-        sizes="(max-width: 734px) 100vw, (max-width: 1054px) 44vw, (max-width: 1340px) 30vw"
-      />
-    </picture>
-  );
-};
-
-export const Gallery = () => {
+export const Gallery = async () => {
+  const images = await getImagesByCursor(12);
   return (
     <section className="gallery">
       <div className="content">
         <h2 id="galeria">Galéria</h2>
         <div className="gallery__items">
-          <GalleryItem src={imgSrc} />
-          <GalleryItem src={imgSrc} />
-          <GalleryItem src={imgSrc} />
-          <GalleryItem src={imgSrc} />
-          <GalleryItem src={imgSrc} />
-          <GalleryItem src={imgSrc} />
-          <GalleryItem src={imgSrc} />
-          <GalleryItem src={imgSrc} />
-          <GalleryItem src={imgSrc} />
-          <GalleryItem src={imgSrc} />
-          <GalleryItem src={imgSrc} />
-          <GalleryItem src={imgSrc} />
+          {images.map((image) => (
+            <ServerGalleryImage key={image.id} image={image} />
+          ))}
+          <GalleryNextImages prevImageId={images.at(-1)?.id} />
         </div>
       </div>
     </section>
