@@ -3,7 +3,11 @@
 import { ClientGalleryImage } from './ClientGalleryImage';
 import { useGetImages } from './useGetImages';
 
-export const GalleryNextImages = ({ prevImageId }: { prevImageId: number }) => {
+export const GalleryNextImages = ({
+  prevImageId,
+}: {
+  prevImageId?: number;
+}) => {
   const { images, loadMore } = useGetImages({ size: 12 });
 
   const handleLoadMore = () => {

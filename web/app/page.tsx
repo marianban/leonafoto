@@ -9,6 +9,7 @@ import { Services } from './(components)/Services/Services';
 import { WhoAmI } from './(components)/WhoAmI/WhoAmI';
 
 import localFont from '@next/font/local';
+import { ClientMenu } from './ClientMenu';
 
 const bebasNeueFont = localFont({
   src: './(fonts)/BebasNeue-RegularSubset.woff2',
@@ -27,7 +28,7 @@ export default function Home() {
           </LogoWrapper>
         </h1>
         <menu>
-          <li className="active">
+          <li>
             <a href="/#o-mne">O mne</a>
           </li>
           <li>
@@ -46,6 +47,7 @@ export default function Home() {
             <a href="/#kontakt">Kontakt</a>
           </li>
         </menu>
+        <ClientMenu />
       </header>
       <main>
         <Hero />

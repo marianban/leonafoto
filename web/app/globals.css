@@ -37,7 +37,7 @@ header .logo a {
   font-weight: 400;
   text-decoration: none;
   font-size: clamp(2.6rem, 2.28vw, 3.6rem);
-  color: #25282E;
+  color: #25282e;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -57,7 +57,7 @@ header menu {
 
 header menu a {
   text-decoration: none;
-  color: #25282E;
+  color: #25282e;
   font-weight: 400;
   opacity: 0.8;
 }
@@ -74,34 +74,45 @@ header menu li a {
   padding: 0 clamp(0.7rem, 1.09vw, 1.4rem);
 }
 
-header menu li.active a {
-  opacity: 1;
-  position: relative;
+header menu li a:hover {
+  color: black;
 }
 
-header menu li.active::before {
+header menu li:not(.contact)::before {
+  opacity: 0;
+  transition: opacity 0.25s ease-in-out;
   content: '';
-  position:absolute;
+  position: absolute;
   width: 100%;
-  background: #F8F7F7;
+  background: rgba(228, 228, 228, 0.8);
   border-radius: 1rem;
-  box-shadow: inset 0px 3px 6px rgba(0, 0, 0, 0.15);
+  /* box-shadow: inset 0px 3px 6px rgba(0, 0, 0, 0.15); */
   height: 4.1rem;
 }
 
+header menu li.active:not(.contact)::before {
+  opacity: 1;
+}
+
+header menu li:hover::before {
+  opacity: 0.4;
+}
+
 header menu li.contact {
-  border: 1px solid #25282E;
+  border: 1px solid #25282e;
 }
 
 /* Sections */
 
-section, footer {
+section,
+footer {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-section .content, footer .content {
+section .content,
+footer .content {
   max-width: 1280px;
   overflow: hidden;
   padding: 2rem 2.5rem 4rem 2.5rem;
