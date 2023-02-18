@@ -6,7 +6,7 @@ export const ImageWidth = 410;
 export const HeroImgWidth = ImageWidth + 10 + 10;
 
 interface HeroImgProps {
-  src: StaticImageData;
+  src: string;
   left: number;
 }
 

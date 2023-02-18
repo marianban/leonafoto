@@ -14,7 +14,6 @@ export const useAnimationFrame = (callback: (delta: number) => void) => {
   }, [callback]);
 
   useEffect(() => {
-    console.log('effect');
     animate();
 
     return () => {

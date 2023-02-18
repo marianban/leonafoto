@@ -63,12 +63,38 @@
   max-width: 80ch;
 }
 
-/* @media screen and (max-width: 1279px) {
+@media screen and (max-width: 1279px) {
+  .photography .content {
+    background-position: right -10% top 3rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
   .photography .content {
     background-position: right -30% top 3rem;
   }
+}
 
+@media screen and (max-width: 1024px) {
   .photography p {
     max-width: 60ch;
   }
-} */
+}
+
+@media screen and (max-width: 920px) {
+  .photography .content {
+    background-position: right -80% top 3rem;
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .photography p {
+    max-width: 100%;
+  }
+  .photography::before {
+    width: 100%;
+  }
+  .photography .content {
+    background: none;
+  }
+}

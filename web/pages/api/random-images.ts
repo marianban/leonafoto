@@ -11,10 +11,12 @@ type Data =
 
 const prisma = new PrismaClient();
 
-const getRandomImages = async (pageSize: number) => {
+const getRandomImages = async (pageSize: number, excluded: string[]) => {
   return await prisma.$queryRaw<
     { name: string }[]
-  >`SELECT name FROM image ORDER BY RANDOM() LIMIT ${pageSize};`;
+  >`SELECT name FROM image where width > height and name not in (${excluded.join(
+    ', '
+  )}) ORDER BY RANDOM() LIMIT ${pageSize};`;
 };
 
 export default async function handler(
@@ -23,9 +25,12 @@ export default async function handler(
 ) {
   try {
     if (req.method === 'GET') {
-      const { size } = req.query;
-      const pageSize = Math.min(size ? Number(size) : 10, 100);
-      const images = await getRandomImages(pageSize);
+      const size = req.query?.size ? Number(req.query?.size) : 10;
+      const excluded = req.query?.excluded
+        ? Array.from(req.query?.excluded)
+        : [];
+      const pageSize = Math.min(size, 50);
+      const images = await getRandomImages(pageSize, excluded);
       res.status(200).json({
         images: images.map((image) => image.name),
       });

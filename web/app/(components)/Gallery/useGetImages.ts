@@ -32,5 +32,9 @@ export const useGetImages = ({ size }: { size?: number } = {}) => {
     [size, images, abortControllerRef]
   );
 
-  return { images, loadMore };
+  const abort = useCallback(() => {
+    abortControllerRef.current?.abort();
+  }, []);
+
+  return { images, loadMore, abort };
 };

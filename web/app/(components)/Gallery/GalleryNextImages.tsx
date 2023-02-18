@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { ClientGalleryImage } from './ClientGalleryImage';
 import { useGetImages } from './useGetImages';
 
@@ -8,11 +9,18 @@ export const GalleryNextImages = ({
 }: {
   prevImageId?: number;
 }) => {
-  const { images, loadMore } = useGetImages({ size: 12 });
+  const { images, loadMore, abort } = useGetImages({ size: 12 });
 
   const handleLoadMore = () => {
     loadMore(images.at(-1)?.id ?? prevImageId);
   };
+
+  useEffect(() => {
+    return () => {
+      abort();
+    };
+  }, [abort]);
+
   return (
     <>
       {images.map((image) => (

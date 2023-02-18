@@ -1,3 +1,4 @@
+import { ContactUs } from './ContactUs';
 import './Footer.css';
 
 export const Footer = () => {
@@ -69,34 +70,7 @@ export const Footer = () => {
           </div>
           <div className="footer__item write-me">
             <h3 className="footer__item-title">Napíšte mi</h3>
-            <form
-              action="https://formspree.io/f/xvodqzqk"
-              method="POST"
-              className="footer__item-form"
-            >
-              <label>
-                Váš email:
-                <input
-                  type="mail"
-                  name="email"
-                  placeholder="Email"
-                  className="footer__item-input"
-                />
-              </label>
-
-              <label>
-                Správa:
-                <textarea
-                  name="message"
-                  placeholder="Správa"
-                  className="footer__item-textarea"
-                ></textarea>
-              </label>
-
-              <button type="submit" className="footer__item-button">
-                Odoslať
-              </button>
-            </form>
+            <ContactUs />
           </div>
         </div>
       </div>

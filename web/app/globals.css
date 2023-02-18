@@ -6,6 +6,10 @@ html {
   scroll-padding-top: 100px;
 }
 
+:root {
+  --border-color: #25282e;
+}
+
 body {
   font-style: normal;
   background-color: #fff;
@@ -99,7 +103,7 @@ header menu li:hover::before {
 }
 
 header menu li.contact {
-  border: 1px solid #25282e;
+  border: 1px solid var(--border-color);
 }
 
 /* Sections */

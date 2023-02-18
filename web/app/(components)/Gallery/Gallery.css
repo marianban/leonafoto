@@ -3,6 +3,10 @@ section.gallery {
   padding: 2rem 2.5rem 4rem 2.5rem;
 }
 
+.gallery .content {
+  overflow: visible;
+}
+
 .gallery__items {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -36,8 +40,21 @@ section.gallery {
 
 .gallery__more-images {
   position: absolute;
-  bottom: -4rem;
+  bottom: -6rem;
   left: 50%;
   transform: translateX(-50%);
-  padding: 0 4rem;
+  padding: 0.7rem 4rem;
+  border: 1px solid var(--border-color);
+  background-color: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.gallery__more-images:hover {
+  background-color: #f5f5f5;
+}
+
+.gallery__more-images:active {
+  box-shadow: none;
 }

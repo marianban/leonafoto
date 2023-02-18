@@ -11,6 +11,8 @@ export const WhoAmI = () => {
           alt="Annamária Bánová - fotograf"
           className="author"
           width={300}
+          height={499}
+          priority={true}
         ></Image>
         <div className="text">
           <h2>O mne</h2>

@@ -1,4 +1,4 @@
-type ImageDto = {
+export type ImageDto = {
   id: number;
   name: string;
   width: number;
