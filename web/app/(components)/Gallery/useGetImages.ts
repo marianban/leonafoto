@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
+import { ImageDto } from '../../../pages/api/ImageDto';
 
 interface Response {
   images: ImageDto[];
@@ -15,26 +16,29 @@ const buildUrl = (size: number, prevImageId?: number) => {
 
 export const useGetImages = ({ size }: { size?: number } = {}) => {
   const [images, setImages] = useState<ImageDto[]>([]);
+  const [inProgress, setInProgress] = useState(false);
   const abortControllerRef = useRef<AbortController>();
 
   const loadMore = useCallback(
     (prevImageId?: number) => {
       abortControllerRef.current?.abort();
       abortControllerRef.current = new AbortController();
-      const url = buildUrl(size ?? 10, images.at(-1)?.id ?? prevImageId);
+      const url = buildUrl(size ?? 10, prevImageId);
       const signal = abortControllerRef.current.signal;
+      setInProgress(true);
       fetch(url, { signal })
         .then((res) => res.json())
         .then((response: Response) =>
-          setImages([...images, ...response.images])
-        );
+          setImages((imgs) => [...imgs, ...response.images])
+        )
+        .finally(() => setInProgress(false));
     },
-    [size, images, abortControllerRef]
+    [size, abortControllerRef]
   );
 
   const abort = useCallback(() => {
     abortControllerRef.current?.abort();
   }, []);
 
-  return { images, loadMore, abort };
+  return { images, loadMore, abort, inProgress };
 };

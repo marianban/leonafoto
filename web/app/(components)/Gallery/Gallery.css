@@ -49,6 +49,8 @@ section.gallery {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 1rem;
   transition: background-color 0.15s ease-in-out;
+  display: flex;
+  align-items: center;
 }
 
 .gallery__more-images:hover {
@@ -57,4 +59,29 @@ section.gallery {
 
 .gallery__more-images:active {
   box-shadow: none;
+}
+
+.gallery__more-images:disabled {
+  opacity: 0.7;
+  box-shadow: none;
+}
+
+.gallery__more-images__spinner {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid #fff;
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+  margin-right: 1rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

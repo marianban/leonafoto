@@ -1,0 +1,132 @@
+.album {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  margin: 2rem;
+  width: calc(100vw - 4rem);
+  height: calc(100vh - 4rem);
+  background-color: #fff;
+  border-radius: 1rem;
+  background-color: #222;
+  user-select: none;
+  position: relative;
+  animation: album__show__animation 0.25s ease-out;
+}
+
+@keyframes album__show__animation {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.album__image {
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.album__image img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: #222;
+}
+
+.album__previews {
+  display: flex;
+  flex-direction: column;
+  padding: 3px 1rem;
+  margin: 1rem 0;
+  width: min-content;
+  overflow-x: auto;
+  gap: 1rem;
+  overscroll-behavior: contain;
+}
+
+.album__preview {
+  width: 200px;
+  height: auto;
+  flex-shrink: 0;
+  filter: brightness(0.75);
+  transition: filter 0.25s ease-in-out;
+}
+
+.album__preview:hover {
+  filter: brightness(1);
+}
+
+.album__preview--selected {
+  outline: #fff solid 3px;
+  filter: brightness(1);
+}
+
+.album__image__controls {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.album__image__controls svg {
+  width: 20rem;
+  height: 20rem;
+  cursor: pointer;
+  opacity: 0.2;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.album__image__controls svg:hover {
+  opacity: 1;
+}
+
+.album__image__controls svg path {
+  fill: #fff;
+}
+
+.album__close {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  cursor: pointer;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  background-color: #222;
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
+  /* opacity: 0.5; */
+  transition: opacity 0.25s ease-in-out, background-color 0.25s ease-in-out,
+    color 0.25s ease-in-out;
+}
+
+.album__close:hover {
+  opacity: 1;
+  color: #fff;
+  background-color: #000;
+}
+
+.album__close svg {
+  width: 3rem;
+  height: 3rem;
+}
+
+.album__close svg path {
+  transition: fill 0.25s ease-in-out;
+  fill: #fff;
+}
+
+.album__close:hover svg path {
+  fill: #fff;
+}

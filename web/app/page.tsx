@@ -7,9 +7,12 @@ import { Photography } from './(components)/Photography/Photography';
 import { PriceList } from './(components)/PriceList/PriceList';
 import { Services } from './(components)/Services/Services';
 import { WhoAmI } from './(components)/WhoAmI/WhoAmI';
+import { HamburgerMenu } from './(components)/HamburgerMenu/HamburgerMenu';
 
 import localFont from '@next/font/local';
 import { ClientMenu } from './ClientMenu';
+import { AlbumContainer } from './(components)/Gallery/AlbumContainer';
+import { Album } from './(components)/Gallery/Album';
 
 const bebasNeueFont = localFont({
   src: './(fonts)/BebasNeue-RegularSubset.woff2',
@@ -27,6 +30,7 @@ export default function Home() {
             </>
           </LogoWrapper>
         </h1>
+        <HamburgerMenu />
         <menu>
           <li>
             <a href="/#o-mne">O mne</a>
