@@ -1,6 +1,6 @@
 section.gallery {
   background: #eff0f0;
-  padding: 2rem 2.5rem 4rem 2.5rem;
+  padding: 2rem 2.5rem 6rem 2.5rem;
 }
 
 .gallery .content {
@@ -40,7 +40,7 @@ section.gallery {
 
 .gallery__more-images {
   position: absolute;
-  bottom: -6rem;
+  bottom: -7rem;
   left: 50%;
   transform: translateX(-50%);
   padding: 0.7rem 4rem;
@@ -51,6 +51,7 @@ section.gallery {
   transition: background-color 0.15s ease-in-out;
   display: flex;
   align-items: center;
+  white-space: nowrap;
 }
 
 .gallery__more-images:hover {

@@ -1,4 +1,5 @@
-footer ul, footer menu {
+footer ul,
+footer menu {
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -15,7 +16,12 @@ footer menu {
 
 footer {
   padding-top: 3rem;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 87.55%, rgba(0, 0, 0, 0.15) 100%), #2D3138;
+  background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 87.55%,
+      rgba(0, 0, 0, 0.15) 100%
+    ),
+    #2d3138;
   color: rgb(255, 255, 255, 0.9);
 }
 
@@ -36,7 +42,8 @@ footer label {
   margin-bottom: 1rem;
 }
 
-footer label input, footer label textarea {
+footer label input,
+footer label textarea {
   margin-top: 0.5rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
@@ -57,19 +64,32 @@ footer button {
 
 footer button:hover {
   background: rgb(255, 255, 255, 0.9);
-  color: #2D3138;
+  color: #2d3138;
 }
 
 footer button:active {
   background: rgb(255, 255, 255, 0.8);
-  color: #2D3138;
+  color: #2d3138;
 }
 
 .footer__items {
   display: grid;
-  grid-template-areas: "menu address contact write-me" "menu map map write-me";
+  grid-template-areas:
+    'menu address contact write-me'
+    'menu map map write-me';
   grid-gap: 4rem;
   width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .footer__items {
+    grid-template-areas:
+      'address'
+      'contact'
+      'write-me'
+      'map'
+      'menu';
+  }
 }
 
 .footer__item.menu {

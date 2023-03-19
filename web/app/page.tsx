@@ -21,7 +21,7 @@ const bebasNeueFont = localFont({
 
 export default function Home() {
   return (
-    <div>
+    <div className="page-container">
       <header>
         <h1 className={`logo ${bebasNeueFont.className}`}>
           <LogoWrapper>

@@ -10,6 +10,21 @@
   user-select: none;
   position: relative;
   animation: album__show__animation 0.25s ease-out;
+  overscroll-behavior: contain;
+}
+
+@media screen and (max-width: 768px) {
+  .album {
+    grid-template-columns: 1fr;
+    width: calc(100vw);
+    height: calc(100vh);
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+body:has(.album) {
+  overflow: hidden;
 }
 
 @keyframes album__show__animation {
@@ -73,6 +88,12 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+  .album__image__controls {
+    display: none;
+  }
 }
 
 .album__image__controls svg {

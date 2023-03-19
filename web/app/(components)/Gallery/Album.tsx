@@ -8,6 +8,7 @@ import { useGetImages } from './useGetImages';
 import { AngleLeft } from '../icons/AngleLeft';
 import { AngleRight } from '../icons/AngleRight';
 import { Times } from '../icons/Times';
+import { useWindowDimensions } from './useWindowDimensions';
 
 type AlbumProps = {
   imageIndex: number;
@@ -25,6 +26,8 @@ export const Album = ({ onClose, imageIndex }: AlbumProps) => {
   const albumRef = useRef<HTMLDivElement | null>(null);
   const animationRef = useRef<Animation | null>(null);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const { width } = useWindowDimensions();
+  const isMobile = width <= 768;
 
   useEffect(() => {
     loadMore();
@@ -48,7 +51,7 @@ export const Album = ({ onClose, imageIndex }: AlbumProps) => {
   }, [onClose, albumRef]);
 
   useLayoutEffect(() => {
-    if (images.length === 0) {
+    if (images.length === 0 || isMobile) {
       return;
     }
     const image = document.querySelector<HTMLElement>(
@@ -61,7 +64,7 @@ export const Album = ({ onClose, imageIndex }: AlbumProps) => {
         inline: 'center',
       });
     }
-  }, [currentImageIndex, images]);
+  }, [currentImageIndex, images, isMobile]);
 
   useLayoutEffect(() => {
     if (!animationRef.current) {
@@ -113,13 +116,16 @@ export const Album = ({ onClose, imageIndex }: AlbumProps) => {
     };
     const direction = Math.sign(end.x - start.x);
     const distance = Math.hypot(end.x - start.x, end.y - start.y);
-    const angle = Math.atan2(end.y - start.y, end.x - start.x);
+    const angle = Math.atan2(
+      Math.abs(end.y - start.y),
+      Math.abs(end.x - start.x)
+    );
     // is swipe left
-    if (direction === -1 && distance > 50 && Math.abs(angle) < 0.5) {
+    if (direction === 1 && distance > 50 && Math.abs(angle) < 0.5) {
       handleNextImage();
     }
     // is swipe right
-    if (direction === 1 && distance > 50 && Math.abs(angle) < 0.5) {
+    if (direction === -1 && distance > 50 && Math.abs(angle) < 0.5) {
       handlePrevImage();
     }
   };
@@ -162,28 +168,30 @@ export const Album = ({ onClose, imageIndex }: AlbumProps) => {
 
   return (
     <div className="album" ref={albumRef}>
-      <div className="album__previews">
-        {images.map((image, i) => {
-          const aspectRatio = image.width / image.height;
-          return (
-            <div
-              className={`album__preview ${
-                i === currentImageIndex ? 'album__preview--selected' : ''
-              }`}
-              key={image.id}
-              onClick={() => handleSelectImage(i)}
-              id={`image-${image.id.toString()}`}
-            >
-              <Image
-                src={`/gallery/${image.name}`}
-                alt={image.name}
-                width={200}
-                height={200 / aspectRatio}
-              />
-            </div>
-          );
-        })}
-      </div>
+      {!isMobile && (
+        <div className="album__previews">
+          {images.map((image, i) => {
+            const aspectRatio = image.width / image.height;
+            return (
+              <div
+                className={`album__preview ${
+                  i === currentImageIndex ? 'album__preview--selected' : ''
+                }`}
+                key={image.id}
+                onClick={() => handleSelectImage(i)}
+                id={`image-${image.id.toString()}`}
+              >
+                <Image
+                  src={`/gallery/${image.name}`}
+                  alt={image.name}
+                  width={200}
+                  height={200 / aspectRatio}
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
       <div
         className="album__image"
         onTouchStart={handleTouchStart}

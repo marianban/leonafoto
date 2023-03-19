@@ -15,6 +15,23 @@ section.who-am-i {
   overflow: visible;
 }
 
+@media screen and (max-width: 768px) {
+  .who-am-i .content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .who-am-i .content img.author {
+    position: unset;
+    height: calc(100% - 6rem);
+  }
+
+  .who-am-i .content .text {
+    max-width: 100%;
+    margin-top: -10rem;
+  }
+}
+
 img.author {
   position: absolute;
   left: 2rem;

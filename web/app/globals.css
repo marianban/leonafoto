@@ -15,6 +15,19 @@ body {
   background-color: #fff;
   font-size: 1.6rem;
   color: rgba(0, 0, 0, 0.9);
+  overflow-x: hidden;
+}
+
+.page-container {
+  overflow-x: hidden;
+}
+
+body:has(menu.active) {
+  overflow: hidden;
+}
+
+body:has(menu.active) .page-container {
+  overflow: hidden;
 }
 
 body:has(menu.active)::before {
@@ -76,7 +89,7 @@ header menu {
 @media screen and (max-width: 768px) {
   header menu {
     padding: 2rem;
-    position: absolute;
+    position: fixed;
     top: 0px;
     right: 0px;
     width: 80vw;
