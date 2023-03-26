@@ -11,7 +11,9 @@ export const GalleryNextImages = ({
   prevImageId?: number;
   startIndex: number;
 }) => {
-  const { images, loadMore, abort, inProgress } = useGetImages({ size: 12 });
+  const { images, loadMore, abort, inProgress, moreToLoad } = useGetImages({
+    size: 12,
+  });
 
   const handleLoadMore = () => {
     loadMore(images.at(-1)?.id ?? prevImageId);
@@ -36,10 +38,10 @@ export const GalleryNextImages = ({
         type="button"
         onClick={handleLoadMore}
         className="gallery__more-images"
-        disabled={inProgress}
+        disabled={inProgress || !moreToLoad}
       >
         {inProgress && <span className="gallery__more-images__spinner" />}
-        Ďalšie fotky
+        {moreToLoad ? 'Ďalšie fotky' : 'Žiadne ďalšie fotky'}
       </button>
     </>
   );

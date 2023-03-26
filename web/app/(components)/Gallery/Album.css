@@ -72,6 +72,7 @@ body:has(.album) {
   flex-shrink: 0;
   filter: brightness(0.75);
   transition: filter 0.25s ease-in-out;
+  cursor: pointer;
 }
 
 .album__preview:hover {
@@ -90,7 +91,7 @@ body:has(.album) {
   justify-content: space-between;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (hover: none) and (max-width: 768px) {
   .album__image__controls {
     display: none;
   }

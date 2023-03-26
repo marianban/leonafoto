@@ -36,6 +36,7 @@ section.gallery {
   max-width: 100%;
   box-shadow: 0px 8px 13px rgba(0, 0, 0, 0.05);
   border: 1rem solid #fff;
+  cursor: pointer;
 }
 
 .gallery__more-images {

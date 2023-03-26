@@ -16,6 +16,7 @@ const buildUrl = (size: number, prevImageId?: number) => {
 
 export const useGetImages = ({ size }: { size?: number } = {}) => {
   const [images, setImages] = useState<ImageDto[]>([]);
+  const [moreToLoad, setMoreToLoad] = useState(true);
   const [inProgress, setInProgress] = useState(false);
   const abortControllerRef = useRef<AbortController>();
 
@@ -28,9 +29,10 @@ export const useGetImages = ({ size }: { size?: number } = {}) => {
       setInProgress(true);
       fetch(url, { signal })
         .then((res) => res.json())
-        .then((response: Response) =>
-          setImages((imgs) => [...imgs, ...response.images])
-        )
+        .then((response: Response) => {
+          setImages((imgs) => [...imgs, ...response.images]);
+          setMoreToLoad(response.images.length > 0);
+        })
         .finally(() => setInProgress(false));
     },
     [size, abortControllerRef]
@@ -40,5 +42,5 @@ export const useGetImages = ({ size }: { size?: number } = {}) => {
     abortControllerRef.current?.abort();
   }, []);
 
-  return { images, loadMore, abort, inProgress };
+  return { images, loadMore, abort, inProgress, moreToLoad };
 };

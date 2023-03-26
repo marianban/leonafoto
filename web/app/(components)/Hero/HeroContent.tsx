@@ -12,6 +12,15 @@ interface Image {
   left: number;
 }
 
+const fillSrcs = (srcs: string[], numberOfImages: number) => {
+  // srcs might be less than numberOfImages if there are not enough images
+  // fill the rest with repeated images
+  const newSrcs = new Array(numberOfImages).fill(0).map((_, index) => {
+    return srcs[index % srcs.length];
+  });
+  return newSrcs;
+};
+
 export const HeroContent = () => {
   const { width } = useWindowSize();
   const [offset, setOffset] = useState(0);
@@ -31,14 +40,14 @@ export const HeroContent = () => {
         loadMore({
           size: numberOfImages,
           excluded: images.map((i) => i.src),
-        }).then((srcs) =>
+        }).then((srcs) => {
           setImages(
-            srcs.map((src, index) => ({
+            fillSrcs(srcs, numberOfImages).map((src, index) => ({
               src,
               left: HeroImgWidth * index,
             }))
-          )
-        );
+          );
+        });
       } else {
         if (numberOfImages !== images.length) {
           if (numberOfImages < images.length) {
@@ -52,7 +61,7 @@ export const HeroContent = () => {
             }).then((srcs) => {
               setImages((images) => [
                 ...images,
-                ...srcs.map((src) => ({
+                ...fillSrcs(srcs, imagesToAdd).map((src) => ({
                   src,
                   left: -HeroImgWidth,
                 })),
@@ -64,17 +73,17 @@ export const HeroContent = () => {
     }
   }, [loadMore, width, images, isLoading]);
 
-  useAnimationFrame(
-    useCallback(
-      (delta: number) => {
-        if (width !== undefined) {
-          // math.round to make sure it always starts at 0
-          setOffset((o) => Math.round(o + delta / 30));
-        }
-      },
-      [setOffset, width]
-    )
+  const animationCallback = useCallback(
+    (delta: number) => {
+      if (width !== undefined) {
+        // math.round to make sure it always starts at 0
+        setOffset((o) => Math.round(o + delta / 30));
+      }
+    },
+    [setOffset, width]
   );
+
+  useAnimationFrame(animationCallback);
 
   useLayoutEffect(() => {
     setImages((images) =>
@@ -99,7 +108,7 @@ export const HeroContent = () => {
         });
         return [...newImages, ...lastImages].map((image, index) => ({
           ...image,
-          left: image.left - 0.1,
+          left: parseFloat((image.left - 0.1).toFixed(2)),
         }));
       });
 
