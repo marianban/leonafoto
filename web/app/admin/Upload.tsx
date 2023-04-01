@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react';
 import { Spinner } from './Spinner';
 
-export const Upload = ({ onSuccess }: { onSuccess: () => void }) => {
+export const Upload = () => {
   const modalRef = useRef<HTMLDialogElement>(null);
   const [isUploading, setIsUploading] = useState(false);
 

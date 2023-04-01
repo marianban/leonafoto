@@ -9,13 +9,14 @@ export const ClientGalleryImage = ({
   index,
 }: {
   image: ImageDto;
-  index: number;
+  index?: number;
 }) => {
   const isPortrait = image.width < image.height;
   const resizeFactor = isPortrait ? 0.5 : 1;
   const resize = (size: number) => Math.round(size * resizeFactor);
 
   const handleOnClick = () => {
+    if (index === undefined) return;
     window.dispatchEvent(new CustomEvent('open-album', { detail: index }));
   };
 

@@ -3,20 +3,34 @@
 import { HeroImg, HeroImgWidth } from './HeroImg';
 import { useWindowSize } from './useWindowSize';
 
-import { useCallback, useState, useEffect, useLayoutEffect } from 'react';
+import {
+  useCallback,
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+} from 'react';
 import { useAnimationFrame } from './useAnimationFrame';
 import { useRandomImages } from './useRandomImages';
+import type { Image } from './types';
 
-interface Image {
-  src: string;
-  left: number;
-}
-
-const fillSrcs = (srcs: string[], numberOfImages: number) => {
+const fillSrcs = (
+  srcs: Omit<Image, 'left'>[],
+  numberOfImages: number,
+  lastIdRef: React.MutableRefObject<number>
+) => {
   // srcs might be less than numberOfImages if there are not enough images
   // fill the rest with repeated images
   const newSrcs = new Array(numberOfImages).fill(0).map((_, index) => {
-    return srcs[index % srcs.length];
+    const newIndex = index % srcs.length;
+    if (newIndex === 0 && index !== 0) {
+      lastIdRef.current += 1;
+      return {
+        ...srcs[newIndex],
+        id: lastIdRef.current,
+      };
+    }
+    return srcs[newIndex];
   });
   return newSrcs;
 };
@@ -25,7 +39,8 @@ export const HeroContent = () => {
   const { width } = useWindowSize();
   const [offset, setOffset] = useState(0);
   const [images, setImages] = useState<Image[]>([]);
-  const { loadMore, abort, isLoading } = useRandomImages();
+  const lastIdRef = useRef(0);
+  const { loadMore, abort, isLoading } = useRandomImages({ lastIdRef });
 
   useEffect(() => {
     return () => {
@@ -40,11 +55,11 @@ export const HeroContent = () => {
         loadMore({
           size: numberOfImages,
           excluded: images.map((i) => i.src),
-        }).then((srcs) => {
+        }).then((imgs) => {
           setImages(
-            fillSrcs(srcs, numberOfImages).map((src, index) => ({
-              src,
-              left: HeroImgWidth * index,
+            fillSrcs(imgs, numberOfImages, lastIdRef).map((img, index) => ({
+              ...img,
+              left: HeroImgWidth * index - 0.1,
             }))
           );
         });
@@ -54,24 +69,22 @@ export const HeroContent = () => {
             setImages((images) => images.slice(0, numberOfImages));
           }
           if (numberOfImages > images.length) {
-            const imagesToAdd = numberOfImages - images.length;
             loadMore({
-              size: imagesToAdd,
+              size: numberOfImages,
               excluded: images.map((i) => i.src),
-            }).then((srcs) => {
-              setImages((images) => [
-                ...images,
-                ...fillSrcs(srcs, imagesToAdd).map((src) => ({
-                  src,
-                  left: -HeroImgWidth,
-                })),
-              ]);
+            }).then((imgs) => {
+              setImages(
+                fillSrcs(imgs, numberOfImages, lastIdRef).map((img, index) => ({
+                  ...img,
+                  left: HeroImgWidth * index - 0.1,
+                }))
+              );
             });
           }
         }
       }
     }
-  }, [loadMore, width, images, isLoading]);
+  }, [loadMore, width, images, isLoading, setImages]);
 
   const animationCallback = useCallback(
     (delta: number) => {
@@ -86,58 +99,83 @@ export const HeroContent = () => {
   useAnimationFrame(animationCallback);
 
   useLayoutEffect(() => {
-    setImages((images) =>
-      images.map((image, index) => ({
+    setImages((images) => {
+      const newImages = images.map((image, index) => ({
         ...image,
         left:
           HeroImgWidth * index -
           (offset % (-HeroImgWidth * (images.length / 2))),
-      }))
-    );
+      }));
+
+      if (newImages.length && newImages.every((image) => image.left >= 0)) {
+        const lastImages = newImages.slice(newImages.length / 2);
+
+        const alreadyLoadedImages = newImages
+          .slice(0, newImages.length / 2)
+          .map((image, index) => ({
+            ...image,
+            id: lastImages[index].id,
+            src: lastImages[index].src,
+          }));
+
+        const imagesToLoad = lastImages.map((i) => ({
+          ...i,
+          loading: true,
+          id: `loading-${i.id}`,
+        }));
+
+        return [...alreadyLoadedImages, ...imagesToLoad].map((img) => ({
+          ...img,
+          left: img.left - 0.1,
+        }));
+      }
+      return newImages;
+    });
   }, [offset, setImages]);
 
   useLayoutEffect(() => {
-    if (images.length && images.every((image) => image.left >= 0)) {
+    const loadingImages = images.filter((i) => i.loading);
+    const loadedImages = images.filter((i) => !i.loading);
+
+    if (loadingImages.length === 0 || isLoading) {
+      return;
+    }
+
+    loadMore({
+      size: loadingImages.length,
+      excluded: loadedImages.map((i) => i.src),
+    }).then((imgs) => {
+      if (imgs.length === 0) {
+        return;
+      }
+
       setImages((images) => {
-        const newImages = images
-          .slice(0, images.length / 2)
-          .map((image) => ({ ...image }));
-        const lastImages = images.slice(images.length / 2);
-        lastImages.forEach((image, index) => {
-          newImages[index].src = image.src;
-        });
-        return [...newImages, ...lastImages].map((image, index) => ({
-          ...image,
-          left: parseFloat((image.left - 0.1).toFixed(2)),
-        }));
-      });
-
-      loadMore({
-        size: images.length / 2,
-        excluded: images.slice(0, images.length / 2).map((i) => i.src),
-      }).then((srcs) => {
-        // console.log(srcs);
-        // console.log(
-        //   images.slice(images.length / 2).length,
-        //   images.slice(0, images.length / 2).length
-        // );
-
-        setImages((images) => [
+        return [
           ...images.slice(0, images.length / 2).map((i) => ({ ...i })),
           ...images.slice(images.length / 2).map((image, index) => ({
             ...image,
-            src: srcs[index],
+            loading: false,
+            id: imgs[index].id,
+            src: imgs[index].src,
           })),
-        ]);
+        ];
       });
-    }
-  }, [images, loadMore]);
+    });
+  }, [images, loadMore, isLoading, setImages]);
 
   return (
     <>
-      {images.map((image, index) => (
-        <HeroImg key={index} src={`/gallery/${image.src}`} left={image.left} />
-      ))}
+      {images.map((image, index) =>
+        image.src ? (
+          <HeroImg
+            key={image.id}
+            src={`/gallery/${image.src}`}
+            left={image.left}
+            loading={image.loading}
+            image={image}
+          />
+        ) : null
+      )}
     </>
   );
 };

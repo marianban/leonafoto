@@ -8,6 +8,7 @@ export default function Head() {
       <link
         rel="stylesheet"
         href="https://use.typekit.net/nrv5kao.css"
+        // @ts-ignore:
         precedence="default"
       />
       <script

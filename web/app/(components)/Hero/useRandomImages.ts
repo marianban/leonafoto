@@ -1,4 +1,5 @@
-import { useCallback, useRef, useState } from 'react';
+import { MutableRefObject, useCallback, useRef, useState } from 'react';
+import type { Image } from './types';
 
 interface Response {
   images: string[];
@@ -13,19 +14,35 @@ const buildUrl = (size: number, excluded: string[]) => {
   return `/api/random-images?${urlParams.toString()}`;
 };
 
-export const useRandomImages = () => {
+export const useRandomImages = ({
+  lastIdRef,
+}: {
+  lastIdRef: MutableRefObject<number>;
+}) => {
   const abortControllerRef = useRef<AbortController>();
   const [isLoading, setIsLoading] = useState(false);
 
   const loadMore = useCallback(
-    ({ size, excluded }: { size: number; excluded: string[] }) => {
+    ({
+      size,
+      excluded,
+    }: {
+      size: number;
+      excluded: string[];
+    }): Promise<Omit<Image, 'left'>[]> => {
+      setIsLoading(true);
       abortControllerRef.current?.abort();
       abortControllerRef.current = new AbortController();
       const signal = abortControllerRef.current.signal;
-      setIsLoading(true);
+
       return fetch(buildUrl(size, excluded), { signal })
         .then((res) => res.json())
-        .then((response: Response) => response.images)
+        .then((response: Response) => {
+          return response.images.map((src) => {
+            const id = ++lastIdRef.current;
+            return { id, src, loading: false };
+          });
+        })
         .catch((err) => {
           if (err.name === 'AbortError') {
             return [];
@@ -34,7 +51,7 @@ export const useRandomImages = () => {
         })
         .finally(() => setIsLoading(false));
     },
-    [setIsLoading]
+    [setIsLoading, lastIdRef]
   );
 
   const abort = useCallback(() => {

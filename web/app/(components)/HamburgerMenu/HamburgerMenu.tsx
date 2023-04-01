@@ -4,7 +4,7 @@ import { Bars } from '../icons/Bars';
 import './HamburgerMenu.css';
 
 export const HamburgerMenu = () => {
-  const menuIconRef = useRef<HTMLDivElement>();
+  const menuIconRef = useRef<HTMLDivElement>(null);
   const toggleMenu = () => {
     const menu = document.querySelector('menu');
     menu?.classList.toggle('active');

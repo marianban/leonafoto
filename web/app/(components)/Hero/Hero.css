@@ -16,14 +16,46 @@
   background-image: url('/images/FilmStrip.svg');
   background-size: 100%;
   padding: 6.1rem 10px;
-  aspect-ratio: 654/607;
+  /* aspect-ratio: 654/607; */
   position: absolute;
   top: 0;
   left: 0;
+  height: auto;
   width: 430px;
 }
 
 .hero figure img {
   object-fit: cover;
   opacity: 0.6;
+}
+
+.hero-img__loading {
+  background: #2d3138;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.hero-img__loading__spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hero-img__loading__spinner::after {
+  content: '';
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  border-top-color: #2d3138;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

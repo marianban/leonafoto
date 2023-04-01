@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useLayoutEffect, useRef } from 'react';
 
 export const useAnimationFrame = (callback: (delta: number) => void) => {
   const animateRef = useRef<number>(0);
@@ -13,7 +13,7 @@ export const useAnimationFrame = (callback: (delta: number) => void) => {
     animateRef.current = window.requestAnimationFrame(animate);
   }, [callback]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     animate();
 
     return () => {
