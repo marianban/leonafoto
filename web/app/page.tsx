@@ -59,6 +59,8 @@ export default function Home() {
         <Services />
         <Photography />
         <PriceList />
+        {/*
+// @ts-ignore */}
         <Gallery />
       </main>
       <Footer />
