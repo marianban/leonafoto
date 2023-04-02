@@ -178,9 +178,19 @@ export default async function handler(
       throw new Error('Missing AUTH_SECRET_KEY env variable');
     }
 
+    if (!process.env.AUTH_ISSUER) {
+      throw new Error('Missing AUTH_ISSUER env variable');
+    }
+
+    if (!process.env.AUTH_AUDIENCE) {
+      throw new Error('Missing AUTH_AUDIENCE env variable');
+    }
+
     // If the credentials are correct, generate a JWT token
     const token = jwt.sign({ username }, process.env.AUTH_SECRET_KEY, {
       expiresIn: '2h',
+      issuer: process.env.AUTH_ISSUER,
+      audience: process.env.AUTH_AUDIENCE,
     });
 
     // Set the token as a cookie and return a response
