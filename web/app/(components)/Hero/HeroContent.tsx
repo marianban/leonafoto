@@ -56,6 +56,9 @@ export const HeroContent = () => {
           size: numberOfImages,
           excluded: images.map((i) => i.src),
         }).then((imgs) => {
+          if (imgs.length < numberOfImages) {
+            return;
+          }
           setImages(
             fillSrcs(imgs, numberOfImages, lastIdRef).map((img, index) => ({
               ...img,
