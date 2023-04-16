@@ -1,4 +1,10 @@
-import { MutableRefObject, useCallback, useRef, useState } from 'react';
+import {
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import type { Image } from './types';
 
 interface Response {

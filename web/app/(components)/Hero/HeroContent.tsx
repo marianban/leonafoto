@@ -35,59 +35,66 @@ const fillSrcs = (
   return newSrcs;
 };
 
+const takeNRandomItems = <T extends unknown>(items: T[], n: number): T[] => {
+  const newItems = [...items];
+  const takenItems = [];
+  for (let i = 0; i < n; i++) {
+    const randomIndex = Math.floor(Math.random() * newItems.length);
+    takenItems.push(newItems[randomIndex]);
+    newItems.splice(randomIndex, 1);
+  }
+  return takenItems;
+};
+
 export const HeroContent = () => {
   const { width } = useWindowSize();
+
   const [offset, setOffset] = useState(0);
+  const [allImages, setAllImages] = useState<Omit<Image, 'left'>[]>();
   const [images, setImages] = useState<Image[]>([]);
   const lastIdRef = useRef(0);
   const { loadMore, abort, isLoading } = useRandomImages({ lastIdRef });
+  const numberOfImages = width
+    ? Math.ceil(width / HeroImgWidth) * 2
+    : undefined;
 
   useEffect(() => {
+    if (!width) {
+      return;
+    }
+
+    loadMore({
+      size: 100,
+      excluded: [],
+    }).then((imgs) => {
+      setAllImages(imgs);
+    });
+
     return () => {
       abort();
     };
-  }, [abort]);
+  }, [abort, loadMore, width]);
 
   useEffect(() => {
-    if (width !== undefined && !isLoading) {
-      const numberOfImages = Math.ceil(width / HeroImgWidth) * 2;
-      if (images.length === 0) {
-        loadMore({
-          size: numberOfImages,
-          excluded: images.map((i) => i.src),
-        }).then((imgs) => {
-          if (imgs.length < numberOfImages) {
-            return;
-          }
-          setImages(
-            fillSrcs(imgs, numberOfImages, lastIdRef).map((img, index) => ({
-              ...img,
-              left: HeroImgWidth * index - 0.1,
-            }))
-          );
-        });
-      } else {
-        if (numberOfImages !== images.length) {
-          if (numberOfImages < images.length) {
-            setImages((images) => images.slice(0, numberOfImages));
-          }
-          if (numberOfImages > images.length) {
-            loadMore({
-              size: numberOfImages,
-              excluded: images.map((i) => i.src),
-            }).then((imgs) => {
-              setImages(
-                fillSrcs(imgs, numberOfImages, lastIdRef).map((img, index) => ({
-                  ...img,
-                  left: HeroImgWidth * index - 0.1,
-                }))
-              );
-            });
-          }
-        }
-      }
+    if (!allImages || allImages.length === 0) {
+      return;
     }
-  }, [loadMore, width, images, isLoading, setImages]);
+    if (numberOfImages === undefined) {
+      return;
+    }
+
+    if (numberOfImages < images.length) {
+      setImages((images) => images.slice(0, numberOfImages));
+    }
+    if (numberOfImages > images.length) {
+      setImages(
+        fillSrcs(allImages, numberOfImages, lastIdRef).map((img, index) => ({
+          ...img,
+          left: HeroImgWidth * index - 0.1,
+        }))
+      );
+    }
+  }, [allImages, numberOfImages, images]);
 
   const animationCallback = useCallback(
     (delta: number) => {
@@ -102,6 +109,10 @@ export const HeroContent = () => {
   useAnimationFrame(animationCallback);
 
   useLayoutEffect(() => {
+    if (!allImages) {
+      return;
+    }
+
     setImages((images) => {
       const newImages = images.map((image, index) => ({
         ...image,
@@ -121,10 +132,16 @@ export const HeroContent = () => {
             src: lastImages[index].src,
           }));
 
-        const imagesToLoad = lastImages.map((i) => ({
-          ...i,
-          loading: true,
-          id: `loading-${i.id}`,
+        const randomImages = takeNRandomItems(
+          allImages.filter(
+            (i) => !alreadyLoadedImages.some((li) => li.id === i.id)
+          ),
+          lastImages.length
+        );
+
+        const imagesToLoad = lastImages.map((img, i) => ({
+          ...randomImages[i],
+          left: img.left,
         }));
 
         return [...alreadyLoadedImages, ...imagesToLoad].map((img) => ({
@@ -132,39 +149,10 @@ export const HeroContent = () => {
           left: img.left - 0.1,
         }));
       }
+
       return newImages;
     });
-  }, [offset, setImages]);
-
-  useLayoutEffect(() => {
-    const loadingImages = images.filter((i) => i.loading);
-    const loadedImages = images.filter((i) => !i.loading);
-
-    if (loadingImages.length === 0 || isLoading) {
-      return;
-    }
-
-    loadMore({
-      size: loadingImages.length,
-      excluded: loadedImages.map((i) => i.src),
-    }).then((imgs) => {
-      if (imgs.length === 0) {
-        return;
-      }
-
-      setImages((images) => {
-        return [
-          ...images.slice(0, images.length / 2).map((i) => ({ ...i })),
-          ...images.slice(images.length / 2).map((image, index) => ({
-            ...image,
-            loading: false,
-            id: imgs[index].id,
-            src: imgs[index].src,
-          })),
-        ];
-      });
-    });
-  }, [images, loadMore, isLoading, setImages]);
+  }, [offset, setImages, allImages]);
 
   return (
     <>
