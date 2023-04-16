@@ -2,6 +2,7 @@
 
 import Image, { StaticImageData } from 'next/image';
 import { Image as HeroImage } from './types';
+import { galleryImage } from '../galleryImage';
 
 export const ImageWidth = 410;
 export const HeroImgWidth = ImageWidth + 10 + 10;
@@ -33,7 +34,7 @@ export const HeroImg = ({ src, left, loading, image }: HeroImgProps) => {
 
       {!image.loading && (
         <Image
-          src={`/gallery/${image.src}`}
+          src={galleryImage(image.src)}
           alt=""
           width={ImageWidth}
           height={278}

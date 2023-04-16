@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { ImageDto } from '../../../pages/api/ImageDto';
 import { GalleryItemContainer } from './GalleryItemContainer';
+import { galleryImage } from '../galleryImage';
 
 export const ServerGalleryImage = ({
   image,
@@ -23,7 +24,7 @@ export const ServerGalleryImage = ({
         }}
       >
         <Image
-          src={`/gallery/${image.name}`}
+          src={galleryImage(image.name)}
           alt={image.name}
           fill={true}
           sizes={`(max-width: 734px) ${resize(

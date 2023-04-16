@@ -9,6 +9,7 @@ import { AngleLeft } from '../icons/AngleLeft';
 import { AngleRight } from '../icons/AngleRight';
 import { Times } from '../icons/Times';
 import { useWindowDimensions } from './useWindowDimensions';
+import { galleryImage } from '../galleryImage';
 
 type AlbumProps = {
   imageIndex: number;
@@ -182,7 +183,7 @@ export const Album = ({ onClose, imageIndex }: AlbumProps) => {
                 id={`image-${image.id.toString()}`}
               >
                 <Image
-                  src={`/gallery/${image.name}`}
+                  src={galleryImage(image.name)}
                   alt={image.name}
                   width={200}
                   height={200 / aspectRatio}
@@ -199,14 +200,14 @@ export const Album = ({ onClose, imageIndex }: AlbumProps) => {
       >
         <Image
           key={prevImage.name}
-          src={`/gallery/${prevImage.name}`}
+          src={galleryImage(prevImage.name)}
           alt={prevImage.name}
           fill={true}
           style={{ opacity: nextCurrentImageIndex === prevImageIndex ? 1 : 0 }}
         />
         <Image
           key={nextImage.name}
-          src={`/gallery/${nextImage.name}`}
+          src={galleryImage(nextImage.name)}
           alt={nextImage.name}
           fill={true}
           style={{ opacity: nextCurrentImageIndex === nextImageIndex ? 1 : 0 }}
@@ -214,7 +215,7 @@ export const Album = ({ onClose, imageIndex }: AlbumProps) => {
         <Image
           key={currentImage.name}
           ref={nodeRef}
-          src={`/gallery/${currentImage.name}`}
+          src={galleryImage(currentImage.name)}
           alt={currentImage.name}
           fill={true}
         />

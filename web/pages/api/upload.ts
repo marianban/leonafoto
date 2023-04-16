@@ -61,7 +61,7 @@ const parseForm = (
       multiples: true,
       keepExtensions: true,
       uploadDir,
-      maxFileSize: 50 * 1024 * 1024, // 50 MB,
+      maxFileSize: 500 * 1024 * 1024, // 500 MB,
       filter: isFileValid,
     });
 
