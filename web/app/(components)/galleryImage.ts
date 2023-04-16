@@ -1,3 +1,3 @@
 export const galleryImage = (imageName: string) => {
-  return `${process.env.IMAGES_DOMAIN ?? ''}/gallery/${imageName}`;
+  return `${process.env.NEXT_PUBLIC_IMAGES_DOMAIN ?? ''}/gallery/${imageName}`;
 };
