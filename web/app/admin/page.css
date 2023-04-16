@@ -28,3 +28,30 @@ dialog {
   left: 50%;
   transform: translateX(-50%);
 }
+
+.img-delete-wrapper {
+  position: relative;
+}
+
+.img-delete-wrapper button {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  background-color: #fff;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transform: translate(50%, -50%);
+}
+
+.img-delete-wrapper .gallery__item img {
+  cursor: default;
+}
+
+.img-delete-wrapper:hover button {
+  opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
+}

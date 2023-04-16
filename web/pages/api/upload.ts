@@ -49,10 +49,11 @@ const parseForm = (
   req: NextApiRequest
 ): Promise<{ fields: Fields; files: Files }> => {
   return new Promise(async (resolve, reject) => {
-    const uploadDir = join(
-      process.env.ROOT_DIR || process.cwd(),
-      `/public/gallery`
-    );
+    if (!process.env.IMAGES_DIR) {
+      throw new Error('IMAGES_DIR not set');
+    }
+
+    const uploadDir = process.env.IMAGES_DIR;
 
     await initGalleryDir(uploadDir);
 

@@ -42,5 +42,12 @@ export const useGetImages = ({ size }: { size?: number } = {}) => {
     abortControllerRef.current?.abort();
   }, []);
 
-  return { images, loadMore, abort, inProgress, moreToLoad };
+  const deleteImageById = useCallback(
+    (id: number) => {
+      setImages((imgs) => imgs.filter((img) => img.id !== id));
+    },
+    [setImages]
+  );
+
+  return { images, loadMore, abort, inProgress, moreToLoad, deleteImageById };
 };

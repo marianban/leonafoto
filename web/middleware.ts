@@ -4,7 +4,11 @@ import type { NextRequest } from 'next/server';
 import { jwtVerify } from 'jose';
 
 export const config = {
-  matcher: '/admin/:path*',
+  matcher: [
+    '/admin',
+    '/admin/(.*)',
+    '/api/((?!login|contact-us|random-images).*)',
+  ],
 };
 
 // https://github.com/vercel/examples/blob/main/edge-middleware/jwt-authentication/lib/auth.ts
