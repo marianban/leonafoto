@@ -2,6 +2,10 @@
   background: #2d3138;
 }
 
+.hero a {
+  cursor: default;
+}
+
 .hero .content {
   display: flex;
   overflow: hidden;
@@ -27,6 +31,9 @@
 .hero figure img {
   object-fit: cover;
   opacity: 0.6;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 .hero-img__loading {
