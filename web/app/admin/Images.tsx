@@ -7,7 +7,7 @@ import { useGetImages } from '../(components)/Gallery/useGetImages';
 import { ImageDto } from '../../pages/api/ImageDto';
 
 export const Images = () => {
-  const { images, loadMore, deleteImageById } = useGetImages();
+  const { images, loadMore, refresh, deleteImageById } = useGetImages();
 
   const loadMoreImages = useCallback(() => {
     loadMore(images.at(-1)?.id);
@@ -18,12 +18,12 @@ export const Images = () => {
   }, [loadMore]);
 
   useEffect(() => {
-    window.addEventListener('images-uploaded', loadMoreImages);
+    window.addEventListener('images-uploaded', refresh);
 
     return () => {
-      window.removeEventListener('images-uploaded', loadMoreImages);
+      window.removeEventListener('images-uploaded', refresh);
     };
-  }, [loadMoreImages]);
+  }, [refresh]);
 
   const handleLoadMore = () => {
     loadMore(images.at(-1)?.id);

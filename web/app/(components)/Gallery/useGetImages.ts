@@ -49,5 +49,18 @@ export const useGetImages = ({ size }: { size?: number } = {}) => {
     [setImages]
   );
 
-  return { images, loadMore, abort, inProgress, moreToLoad, deleteImageById };
+  const refresh = useCallback(() => {
+    setImages([]);
+    loadMore();
+  }, [loadMore]);
+
+  return {
+    images,
+    loadMore,
+    abort,
+    inProgress,
+    moreToLoad,
+    deleteImageById,
+    refresh,
+  };
 };
