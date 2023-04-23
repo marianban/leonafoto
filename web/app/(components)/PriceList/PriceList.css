@@ -3,11 +3,12 @@
   list-style: none;
   gap: 1rem;
   flex-direction: column;
+  margin-top: 2rem;
 }
 
 .price-list__item {
   display: grid;
-  grid-template-areas: "marker title price" "marker description price";
+  grid-template-areas: 'marker title price' 'marker description price';
   grid-template-columns: 33px 1fr 1fr;
   border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
   list-style: none;

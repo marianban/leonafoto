@@ -35,15 +35,17 @@ export const Footer = () => {
             </h3>
             <ul className="footer__item-list">
               <li>
-                <a href="tel:+421903565391">+421 903 565 391</a>
+                <a href="tel:+421911397538">+421 911 397 538</a>
               </li>
-              <li>
+              {/* <li>
                 <a href="mailto:annamaria@leonafoto.sk">
                   annamaria@leonafoto.sk
                 </a>
-              </li>
+              </li> */}
               <li>
-                <a href="https://www.facebook.com/leonafoto.sk">Facebook</a>
+                <a href="https://www.facebook.com/profile.php?id=100085023186786">
+                  Facebook
+                </a>
               </li>
             </ul>
           </div>
@@ -51,9 +53,10 @@ export const Footer = () => {
             <h3 className="footer__item-title">Adresa</h3>
             <ul className="footer__item-list">
               <li>Leonafoto.sk</li>
-              <li>Anna Maria Leonárová</li>
-              <li>Štefánikova 1</li>
-              <li>821 09 Bratislava</li>
+              <li>Annamária Bánová</li>
+              <li>Údernícka 6</li>
+              <li>Petržalka</li>
+              <li>851 01 Bratislava</li>
             </ul>
           </div>
           <div className="footer__item map">

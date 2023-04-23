@@ -18,6 +18,10 @@ body {
   overflow-x: clip;
 }
 
+a {
+  color: white;
+}
+
 .page-container {
   overflow-x: clip;
 }

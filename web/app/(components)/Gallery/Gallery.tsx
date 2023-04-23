@@ -11,6 +11,10 @@ export const Gallery = async () => {
     <section className="gallery">
       <div className="content">
         <h2 id="galeria">Galéria</h2>
+        <p>
+          Ukážky fotografií z rôznych druhov fotení, ktoré ponúkam. Prezrite si
+          moje práce a nechajte sa inšpirovať pre vaše vlastné fotenie.
+        </p>
         <div className="gallery__items">
           {images.map((image, index) => (
             <ServerGalleryImage key={image.id} image={image} index={index} />

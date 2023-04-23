@@ -21,6 +21,11 @@ export const PriceList = () => {
     <section className="price-list">
       <div className="content">
         <h2 id="cennik">Cenník</h2>
+        <p>
+          V tejto sekcii nájdete prehľad balíčkov a cien, ktoré ponúkame.
+          Informujte sa o zahrnutých službách, počte fotografií a ďalších
+          podrobnostiach týkajúcich sa mojich ponúk.
+        </p>
         <div className="price-list__items">
           <PriceListItem
             title="Malý balíček"

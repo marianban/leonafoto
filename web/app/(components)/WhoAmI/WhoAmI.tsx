@@ -8,7 +8,7 @@ export const WhoAmI = () => {
       <div className="content">
         <Image
           src={photo}
-          alt="Annamária Bánová - fotograf"
+          alt="Annamária Bánová - fotografka"
           className="author"
           width={300}
           height={499}
@@ -17,21 +17,36 @@ export const WhoAmI = () => {
         <div className="text">
           <h2>O mne</h2>
           <p>
-            Odkedy som sa stala mamou, je detský úsmev a šibalstvo v očkách tých
-            najmenších pre mňa ten najkrajší námet na fotenie. S deťmi je
-            fotenie vždy dobrodružstvo, samé si povedia čo a ako bude a aké
-            fotografie nakoniec vzniknú. Preto je fotenie detí vždy jedinečné a
-            nabíja ma energiou.
+            Ahojte! Som Anička, vášnivá fotografka špecializujúca sa na
+            fotografovanie detí a rodín. S fotografovaním som začala v roku
+            2018, keď som absolvovala svoj prvý fotokurz v škole digitálnej
+            fotografie. Po narodení mojich detí ma fotenie ešte viac uchvátilo a
+            môj záujem oň sa len prehlboval. Mojou srdcovou záležitosťou je
+            fotografovanie detičiek od tých najmenších až po väčších škôlkárov.
+            Snažím sa zachytiť krásu, emócie a autentickosť osôb prostredníctvom
+            objektívu.
           </p>
           <p>
-            Pri detskom fotení sa snažím deťom prispôsobiť, neštylizujem každý
-            záber, ale nechávam aj na deťoch, nech sa prejavia. Som rada, keď sa
-            detičky uvoľnia a stanú sa sami sebou, tak aby vzniknuté zábery boli
-            najmä o nich. Preto je fajn, aj sú aj rodičia na fotení naladení na
-            rovnakú vlnovú dĺžku, komunikujú a zabávajú sa s deťmi. Fotím aj s
-            rekvizitami, ale vždy len tak, aby neboli na fotke dôležitejšie ako
-            Vaše dieťa. Najradšej mám čisté a jedinečné zábery detičiek v ich
-            prirodzenom prostredí.
+            Vo svojej práci ako fotografnka kladiem veľký dôraz na detaily,
+            aranžmán a štýlovanie. Verím, že starostlivo pripravená kompozícia a
+            vybrané rekvizity vytvárajú unikátnu atmosféru a pomáhajú
+            podčiarknuť osobitnosť každého zobrazeného momentu.
+          </p>
+          <p>
+            Ak máte záujem o moje služby alebo máte otázky, neváhajte ma
+            kontaktovať prostredníctvom telefónu, emailu alebo sociálnych médií.
+            V sekcii <a href="#kontakt">kontakt</a> nájdete všetky potrebné
+            kontaktné informácie a formulár na rýchlu otázku ohľadne fotenia.
+            Rada vám poskytnem ďalšie informácie, poradím a zodpoviem vaše
+            otázky.
+          </p>
+          <p>
+            Staňte sa sledovateľom mojej Facebook stránky{' '}
+            <a href="https://www.facebook.com/profile.php?id=100085023186786">
+              Leonafoto
+            </a>
+            , kde nájdete ukážky z fotení, aktuality, novinky o foteniach,
+            súťažiach a ďalšie zaujímavosti.
           </p>
         </div>
       </div>

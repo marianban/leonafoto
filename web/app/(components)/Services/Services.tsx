@@ -12,6 +12,7 @@ import family from './images/undraw_family_vg76 1.png';
 import family2x from './images/undraw_family_vg76 1-2.png';
 import photoshoot from './images/undraw_fashion_photoshoot_mtq8 1.png';
 import photoshoot2x from './images/undraw_fashion_photoshoot_mtq8 1-2.png';
+import love from './images/undraw_Love_it_7c9l.png';
 
 type ServiceItemProps = {
   title: string;
@@ -32,7 +33,7 @@ const ServiceItem = ({
     <div className="service-item">
       <h3>{title}</h3>
       <picture>
-        <Image src={image} alt="" width={width} height={height} />
+        <Image src={image} alt={title} width={width} height={height} />
       </picture>
       <p>{description}</p>
     </div>
@@ -46,43 +47,50 @@ export const Services = () => {
         <h2>Ponuka</h2>
         <div className="service-items">
           <ServiceItem
+            title="Tehotenské fotenie"
+            description="Tehotenské fotenie zaznamenáva krásu a radostné očakávanie prírastku do rodiny. Fotenie je možné realizovať podľa želania budúcej mamičky v interiéri alebo exterieri. Zapojenie partnera, detičiek alebo domáceho miláčika dodá fotografiám osobitný rozmer. Ideálny čas pre tento typ fotenia je v 7-8. mesiaci tehotenstva, keď je bruško mamičky pekne zaoblené."
+            image={love}
+            width={128}
+            height={161}
+          />
+          <ServiceItem
             title="Novorodenecké fotenie"
-            description="Odkedy som sa stala mamou, je detský úsmev a šibalstvo v očkách tých  najmenších pre mňa ten najkrajší námet na fotenie. S deťmi je fotenie vždy dobrodružstvo, samé si povedia čo a ako bude a aké fotografie nakoniec vzniknú. Preto je fotenie detí vždy jedinečné a nabíja ma energiou. "
+            description="Zachyťte prvé chvíle vášho novorodenca s naším novorodeneckým fotografovaním. Je dôležité objednať si tento typ fotenia ešte pred pôrodom, pretože sa realizuje v prvých 7-14 dňoch života. Fotenie je časovo náročnejšie, najmä ak sa s novorodencom chcú fotiť aj ostatní členovia rodiny."
             image={baby2x}
             width={77}
             height={113}
           />
           <ServiceItem
             title="Rodinné fotenie"
-            description="Odkedy som sa stala mamou, je detský úsmev a šibalstvo v očkách tých  najmenších pre mňa ten najkrajší námet na fotenie. S deťmi je fotenie vždy dobrodružstvo, samé si povedia čo a ako bude a aké fotografie nakoniec vzniknú. Preto je fotenie detí vždy jedinečné a nabíja ma energiou. "
+            description="Rodinné fotenie je skvelý spôsob, ako zaznamenať spoločné chvíle a posilniť rodinné väzby. Ponúkame rôzne štýly fotografovania, od klasických záberov až po zábavné a neformálne momentky. Naše rodinné fotenie je prispôsobené potrebám a želaniam každého klienta."
             image={family2x}
             width={113}
             height={118}
           />
           <ServiceItem
-            title="Detské fotenie"
-            description="Odkedy som sa stala mamou, je detský úsmev a šibalstvo v očkách tých  najmenších pre mňa ten najkrajší námet na fotenie. S deťmi je fotenie vždy dobrodružstvo, samé si povedia čo a ako bude a aké fotografie nakoniec vzniknú. Preto je fotenie detí vždy jedinečné a nabíja ma energiou. "
+            title="Detské portréty"
+            description="Ak ste nestihli novorodenecké fotenie svojho dieťaťa, nevadí. Každé obdobie života vášho dieťaťa je krásne a hodné zaznamenania. Ako oslavuje svoj sviatok, nastupuje do škôlky alebo školy, to všetko sú dôležité míľniky v živote dieťaťa a rodiča, ktoré stojí za to zachytiť na fotografiách a založiť si do rodinného albumu."
             image={dollPlay2x}
             width={99}
             height={72}
           />
           <ServiceItem
             title="Portréty"
-            description="Odkedy som sa stala mamou, je detský úsmev a šibalstvo v očkách tých  najmenších pre mňa ten najkrajší námet na fotenie. S deťmi je fotenie vždy dobrodružstvo, samé si povedia čo a ako bude a aké fotografie nakoniec vzniknú. Preto je fotenie detí vždy jedinečné a nabíja ma energiou. "
+            description="Zameriavam sa na zachytávanie radosti, pôvabu a jedinečnosti malých detí, ktoré majú schopnosť vniesť do fotografií neopakovateľnú energiu a emócie. Ich nevinnosť, prirodzená hravosť a bezstarostnosť sú pre mňa nekonečným zdrojom inšpirácie pri fotografovaní. Snažím sa vytvárať prirodzené a autentické portréty, ktoré odzrkadľujú osobnosť a charakter každého malého modela, a zároveň približujú ich svet plný zábavy, objavovania a radosť z maličkostí."
             image={photoshoot2x}
             width={112}
             height={101}
           />
           <ServiceItem
             title="Vianočné fotenie"
-            description="Odkedy som sa stala mamou, je detský úsmev a šibalstvo v očkách tých  najmenších pre mňa ten najkrajší námet na fotenie. S deťmi je fotenie vždy dobrodružstvo, samé si povedia čo a ako bude a aké fotografie nakoniec vzniknú. Preto je fotenie detí vždy jedinečné a nabíja ma energiou. "
+            description="Vianočné fotenie patrí medzi najobľúbenejšie rodinné fotografiou. Pre veľký záujem je potrebné objednať si tento typ fotenia v dostatočnom predstihu (október, november). Vianočná scéna je štýlovaná v jednoduchom, modernom a sviatočnom duchu. Ukážky z vianočnej kulisou zverejňujem v skorších termínoch na mojej Facebook stránke Leonafoto."
             image={christmass2x}
             width={115}
             height={106}
           />
           <ServiceItem
             title="Narodeninové fotenie"
-            description="Odkedy som sa stala mamou, je detský úsmev a šibalstvo v očkách tých  najmenších pre mňa ten najkrajší námet na fotenie. S deťmi je fotenie vždy dobrodružstvo, samé si povedia čo a ako bude a aké fotografie nakoniec vzniknú. Preto je fotenie detí vždy jedinečné a nabíja ma energiou. "
+            description="Narodeninové fotenie je veselým spôsobom, ako zachytiť oslavu vášho dieťaťa. Fotografie môžu byť realizované v exteriéri alebo interiéri, a môžete si vybrať farbu scény, aranžmán a svoje predstavy o oslave. Je na vás, či chcete priniesť aj vlastnú tortu. Niet krajšej spomienky pre rodiča, ako záznam z narodeninovej oslavy dieťaťa, ktorý odzrkadľuje plynúci čas a ako sa ich ratolesť mení."
             image={birthday2x}
             width={93}
             height={89}
