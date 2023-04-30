@@ -27,7 +27,7 @@ export const useGetImages = ({ size }: { size?: number } = {}) => {
       const url = buildUrl(size ?? 10, prevImageId);
       const signal = abortControllerRef.current.signal;
       setInProgress(true);
-      fetch(url, { signal, cache: 'no-cache' })
+      fetch(url, { signal, cache: 'no-store' })
         .then((res) => res.json())
         .then((response: Response) => {
           setImages((imgs) => [...imgs, ...response.images]);
