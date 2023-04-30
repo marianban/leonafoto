@@ -37,6 +37,12 @@ const deleteImageById = async (id: number) => {
   });
 };
 
+export const revalidate = async () => {
+  return fetch(
+    `${process.env.BASE_URL}/api/revalidate?secret=${process.env.REVALIDATE_SECRET}`
+  );
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
@@ -52,6 +58,7 @@ export default async function handler(
 
       const imageId = Number(id);
       await deleteImageById(imageId);
+      await revalidate();
 
       res.status(200).json({ message: 'Image deleted successfully' });
     } else {
