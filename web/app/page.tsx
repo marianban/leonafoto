@@ -19,6 +19,8 @@ const bebasNeueFont = localFont({
   weight: '400',
 });
 
+export const revalidate = 60;
+
 export default function Home() {
   return (
     <div className="page-container">
