@@ -44,11 +44,13 @@ export default function Head() {
         src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
         async
       ></script>
-      <script
-        async
-        src="https://umami.closure.sk/script.js"
-        data-website-id="2faaf711-5864-4ea1-91d5-c02f1b16d19a"
-      ></script>
+      {process.env.NODE_ENV === 'production' && (
+        <script
+          async
+          src="https://umami.closure.sk/script.js"
+          data-website-id="2faaf711-5864-4ea1-91d5-c02f1b16d19a"
+        ></script>
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredData }}

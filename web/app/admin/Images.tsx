@@ -35,6 +35,7 @@ export const Images = () => {
         method: 'DELETE',
       }).then(() => {
         deleteImageById(image.id);
+        refresh();
       });
     }
   };

@@ -194,10 +194,17 @@ export default async function handler(
     });
 
     // Set the token as a cookie and return a response
-    res.setHeader(
-      'Set-Cookie',
-      `auth_token=${token}; Path=/; HttpOnly; Secure; SameSite=Strict`
-    );
+    if (process.env.NODE_ENV === 'production') {
+      res.setHeader(
+        'Set-Cookie',
+        `auth_token=${token}; Path=/; HttpOnly; Secure; SameSite=Strict`
+      );
+    } else {
+      res.setHeader(
+        'Set-Cookie',
+        `auth_token=${token}; Path=/; HttpOnly; SameSite=Strict`
+      );
+    }
 
     res.status(200).end();
   } catch (err) {
