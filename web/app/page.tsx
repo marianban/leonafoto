@@ -11,15 +11,11 @@ import { HamburgerMenu } from './(components)/HamburgerMenu/HamburgerMenu';
 
 import localFont from '@next/font/local';
 import { ClientMenu } from './ClientMenu';
-import { AlbumContainer } from './(components)/Gallery/AlbumContainer';
-import { Album } from './(components)/Gallery/Album';
 
 const bebasNeueFont = localFont({
   src: './(fonts)/BebasNeue-RegularSubset.woff2',
   weight: '400',
 });
-
-export const revalidate = 60;
 
 export default function Home() {
   return (

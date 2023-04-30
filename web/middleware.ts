@@ -7,7 +7,7 @@ export const config = {
   matcher: [
     '/admin',
     '/admin/(.*)',
-    '/api/((?!login$|images$|contact-us$|random-images$)[^?]*)',
+    '/api/((?!login$|images$|contact-us$|random-images|revalidate$)[^?]*)',
   ],
 };
 

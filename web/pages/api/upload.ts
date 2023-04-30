@@ -10,6 +10,7 @@ import { mkdir, stat } from 'fs/promises';
 import { PrismaClient } from '@prisma/client';
 import { promisify } from 'util';
 import { imageSize } from 'image-size';
+import { env } from 'process';
 const sizeOf = promisify(imageSize);
 
 type Data = {
@@ -98,6 +99,12 @@ export const saveImagesToDb = async (files: Files) => {
   return await Promise.all(createImagePromises);
 };
 
+export const revalidate = async () => {
+  return fetch(
+    `${process.env.BASE_URL}/api/revalidate?secret=${process.env.REVALIDATE_SECRET}`
+  );
+};
+
 // next.js api route
 export default async function handler(
   req: NextApiRequest,
@@ -107,6 +114,7 @@ export default async function handler(
     if (req.method === 'POST') {
       const { files } = await parseForm(req);
       const images = await saveImagesToDb(files);
+      await revalidate();
       res.status(200).json({ count: images.length });
     } else {
       res.status(400).json({ count: -1 });
