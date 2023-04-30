@@ -52,7 +52,7 @@ const sendEmail = async (email: string, message: string) => {
 
   await transporter.sendMail({
     from: email, // sender address
-    to: 'marian.ban@gmail.com', // list of receivers
+    to: process.env.CONTACT_US_TO, // list of receivers
     subject: 'Test email', // Subject line
     text: message, // plain text body
   });
