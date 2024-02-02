@@ -48,7 +48,7 @@ export const Services = () => {
         <div className="service-items">
           <ServiceItem
             title="Tehotenské fotenie"
-            description="Tehotenské fotenie zaznamenáva krásu a radostné očakávanie prírastku do rodiny. Fotenie je možné realizovať podľa želania budúcej mamičky v interiéri alebo exterieri. Zapojenie partnera, detičiek alebo domáceho miláčika dodá fotografiám osobitný rozmer. Ideálny čas pre tento typ fotenia je v 7-8. mesiaci tehotenstva, keď je bruško mamičky pekne zaoblené."
+            description="Tehotenské fotenie zaznamenáva krásu a radostné očakávanie prírastku do rodiny. Fotenie je možné realizovať podľa želania budúcej mamičky v interiéri alebo exteriéri. Zapojenie partnera, detičiek alebo domáceho miláčika dodá fotografiám osobitný rozmer. Ideálny čas pre tento typ fotenia je v 7-8. mesiaci tehotenstva, keď je bruško mamičky pekne zaoblené."
             image={love}
             width={128}
             height={161}
@@ -69,21 +69,21 @@ export const Services = () => {
           />
           <ServiceItem
             title="Detské portréty"
-            description="Ak ste nestihli novorodenecké fotenie svojho dieťaťa, nevadí. Každé obdobie života vášho dieťaťa je krásne a hodné zaznamenania. Ako oslavuje svoj sviatok, nastupuje do škôlky alebo školy, to všetko sú dôležité míľniky v živote dieťaťa a rodiča, ktoré stojí za to zachytiť na fotografiách a založiť si do rodinného albumu."
+            description="Ak ste nestihli novorodenecké fotenie svojho dieťaťa, nevadí. Každé obdobie života vášho dieťaťa je krásne a hodné zaznamenania, či ide o oslavu narodením, nástup do škôlky alebo školy. To všetko sú dôležité míľniky v živote dieťaťa a rodiča, ktoré stoja za  zachytenie na fotografiách a založenie si fotiek do rodinného albumu."
             image={dollPlay2x}
             width={99}
             height={72}
           />
           <ServiceItem
             title="Portréty"
-            description="Zameriavam sa na zachytávanie radosti, pôvabu a jedinečnosti malých detí, ktoré majú schopnosť vniesť do fotografií neopakovateľnú energiu a emócie. Ich nevinnosť, prirodzená hravosť a bezstarostnosť sú pre mňa nekonečným zdrojom inšpirácie pri fotografovaní. Snažím sa vytvárať prirodzené a autentické portréty, ktoré odzrkadľujú osobnosť a charakter každého malého modela, a zároveň približujú ich svet plný zábavy, objavovania a radosť z maličkostí."
+            description="Zameriavam sa na zachytávanie radosti, pôvabu a jedinečnosti malých detí, ktoré majú schopnosť vniesť do fotografií neopakovateľnú energiu a emócie. Ich nevinnosť, prirodzená hravosť a bezstarostnosť sú pre mňa nekonečným zdrojom inšpirácie pri fotografovaní. Snažím sa vytvárať prirodzené a autentické portréty, ktoré odzrkadľujú osobnosť a charakter každého malého modela, a zároveň približujú ich svet plný zábavy, objavovania a radosti z maličkostí."
             image={photoshoot2x}
             width={112}
             height={101}
           />
           <ServiceItem
             title="Vianočné fotenie"
-            description="Vianočné fotenie patrí medzi najobľúbenejšie rodinné fotografiou. Pre veľký záujem je potrebné objednať si tento typ fotenia v dostatočnom predstihu (október, november). Vianočná scéna je štýlovaná v jednoduchom, modernom a sviatočnom duchu. Ukážky z vianočnej kulisou zverejňujem v skorších termínoch na mojej Facebook stránke Leonafoto."
+            description="Vianočné fotenie patrí medzi najobľúbenejšie rodinné fotenie v rámci roka. Pre veľký záujem je potrebné objednať si tento typ fotenia v dostatočnom predstihu (október, november). Vianočná scéna je prispôsobená v jednoduchom, modernom a sviatočnom duchu. Ukážky z vianočnou kulisou zverejňujem v skorších termínoch na mojej Facebook stránke Leonafoto."
             image={christmass2x}
             width={115}
             height={106}

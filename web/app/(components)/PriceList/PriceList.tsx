@@ -24,20 +24,20 @@ export const PriceList = () => {
         <p>
           V tejto sekcii nájdete prehľad balíčkov a cien, ktoré ponúkame.
           Informujte sa o zahrnutých službách, počte fotografií a ďalších
-          podrobnostiach týkajúcich sa mojich ponúk.
+          podrobnostiach.
         </p>
         <div className="price-list__items">
           <PriceListItem
             title="Malý balíček"
             description="5 upravených fotiek"
-            price="20 €"
+            price="30 €"
           />
           <PriceListItem
             title="Veľký balíček"
             description="10 upravených fotiek"
-            price="30 €"
+            price="50 €"
           />
-          <PriceListItem title="Každá ďalšia fotka" price="20 €" />
+          <PriceListItem title="Každá ďalšia fotka" price="4 €" />
         </div>
       </div>
     </section>

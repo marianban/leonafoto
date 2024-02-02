@@ -9,7 +9,7 @@ export const Photography = () => {
           Fotenie prebieha v mojom ateliéri na adrese Údernícka 6 v Petržalke.
           Môžete sa sem dostať MHD, linkami č. 80 a 99, alebo autom s možnosťou
           parkovania v OC Vienna Gate. Na fotenie sa vopred objednáva
-          telefonicky alebo emailom, pričom dohodneme sa dátum, čas, druh
+          telefonicky alebo emailom, pričom dohodneme si dátum, čas, druh
           fotenia, počet členov rodiny, vek detí, farba oblečenia a podobne.
           Trvanie fotenia závisí od jeho typu, ale väčšinou trvá od 30 do 60
           minút. K foteniu sú k dispozícii rekvizity, dekorácie, doplnky a pre
@@ -36,11 +36,11 @@ export const Photography = () => {
           Finálna verzia fotiek je odovzdaná v digitálnej podobe, zasielaná
           emailom. Druhou alternatívou je uloženie a sťahovanie upravených
           fotiek z úložiska, k čomu vás vyzvem. Zverejňovanie fotiek sa
-          uskutočňuje výhradne so súhlasom dotknutej osoby. V budúcnosti
-          plánujeme ponúknuť aj tlač vybraných fotiek, o čom vás včas
-          informujeme cez Facebook. Pokiaľ máte záujem o nafotené neupravené
-          fotografie (mnohí z vás si ich žiadajú), odosielam ich len na
-          požiadanie a je za to účtovaný poplatok vo výške 5 Eur.
+          uskutočňuje výhradne so súhlasom dotknutej osoby. Aktuálne ponúkam už
+          aj tlač vybraných fotiek, ktoré zasielam prostredníctvom pošty. Pokiaľ
+          máte záujem o nafotené neupravené fotografie (mnohí z vás si ich
+          žiadajú), odosielam ich len na požiadanie a je za to účtovaný poplatok
+          vo výške 5 Eur.
         </p>
       </div>
     </section>

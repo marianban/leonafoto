@@ -21,15 +21,15 @@ export const WhoAmI = () => {
             fotografovanie detí a rodín. S fotografovaním som začala v roku
             2018, keď som absolvovala svoj prvý fotokurz v škole digitálnej
             fotografie. Po narodení mojich detí ma fotenie ešte viac uchvátilo a
-            môj záujem oň sa len prehlboval. Mojou srdcovou záležitosťou je
+            môj záujem oň sa len prehĺbil. Mojou srdcovou záležitosťou je
             fotografovanie detičiek od tých najmenších až po väčších škôlkárov.
             Snažím sa zachytiť krásu, emócie a autentickosť osôb prostredníctvom
             objektívu.
           </p>
           <p>
-            Vo svojej práci ako fotografnka kladiem veľký dôraz na detaily,
-            aranžmán a štýlovanie. Verím, že starostlivo pripravená kompozícia a
-            vybrané rekvizity vytvárajú unikátnu atmosféru a pomáhajú
+            Vo svojej práci ako fotografka kladiem veľký dôraz na detaily,
+            zladenie a atmosféru scény. Verím, že precízne pripravená kompozícia
+            a vybrané rekvizity vytvárajú unikátnu atmosféru a pomáhajú
             podčiarknuť osobitnosť každého zobrazeného momentu.
           </p>
           <p>
