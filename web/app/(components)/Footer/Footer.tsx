@@ -53,6 +53,7 @@ export const Footer = () => {
             <h3 className="footer__item-title">Adresa</h3>
             <ul className="footer__item-list">
               <li>Leonafoto.sk</li>
+              <li>IČO 56030002</li>
               <li>Annamária Bánová</li>
               <li>Údernícka 6</li>
               <li>Petržalka</li>
