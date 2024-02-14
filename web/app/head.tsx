@@ -1,27 +1,27 @@
 const structuredData = `{
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: 'LeonaFoto | Fotenie detí, rodiny, tehotenské fotenie',
-  description:
-    'Annamária Bánová,  fotografka špecializujúca sa na fotografovanie detí, rodín a tehotných žien. Objavte krásu a emócie zachytené v jedinečných portrétoch a spomienkach, ktoré si budete ceniť navždy.',
-  url: 'https://www.leonafoto.sk',
-  telephone: '+421911397538',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Údernícka 6',
-    addressLocality: 'Bratislava',
-    addressRegion: 'Bratislavský kraj',
-    postalCode: '851 01',
-    addressCountry: 'SK',
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "LeonaFoto | Fotenie detí, rodiny, tehotenské fotenie",
+  "description":
+    "Annamária Bánová,  fotografka špecializujúca sa na fotografovanie detí, rodín a tehotných žien. Objavte krásu a emócie zachytené v jedinečných portrétoch a spomienkach, ktoré si budete ceniť navždy.",
+  "url": "https://leonafoto.sk",
+  "telephone": "+421911397538",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Údernícka 6",
+    "addressLocality": "Bratislava",
+    "addressRegion": "Bratislavský kraj",
+    "postalCode": "851 01",
+    "addressCountry": "SK"
   },
-  image: 'https://www.leonafoto.sk/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FFotoAnnamaria2.09a92960.jpg&w=640&q=75',
-  priceRange: '€30-€60',
-  currenciesAccepted: 'EUR',
-  paymentAccepted: 'Hotovosť, Prevod na účet',
-  areaServed: 'Slovakia',
-  sameAs: [
-    'hhttps://www.facebook.com/profile.php?id=100085023186786',
-  ],
+  "image": "https://leonafoto.sk/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FFotoAnnamaria2.09a92960.jpg&w=640&q=75",
+  "priceRange": "€30-€60",
+  "currenciesAccepted": "EUR",
+  "paymentAccepted": "Hotovosť, Prevod na účet",
+  "areaServed": "Slovakia",
+  "sameAs": [
+    "https://www.facebook.com/profile.php?id=100085023186786"
+  ]
 }`;
 
 export default function Head() {
