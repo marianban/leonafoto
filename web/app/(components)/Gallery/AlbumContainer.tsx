@@ -1,19 +1,16 @@
 'use client';
 
-import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Album } from './Album';
 
 export const AlbumContainer = () => {
-  const ref = useRef<Element | null>(null);
-  const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
-
-  useEffect(() => {
-    ref.current = document.querySelector<HTMLElement>('#modal-root');
-    setMounted(true);
-  }, []);
+  const portalRoot =
+    typeof document === 'undefined'
+      ? null
+      : document.querySelector<HTMLElement>('#modal-root');
 
   const handleOnClose = () => {
     setOpen(false);
@@ -44,7 +41,7 @@ export const AlbumContainer = () => {
     };
   }, []);
 
-  return mounted && ref.current
+  return portalRoot
     ? createPortal(
         <div>
           {open && (
@@ -53,7 +50,7 @@ export const AlbumContainer = () => {
             </div>
           )}
         </div>,
-        ref.current
+        portalRoot
       )
     : null;
 };

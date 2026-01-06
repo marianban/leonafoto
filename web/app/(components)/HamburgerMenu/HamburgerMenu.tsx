@@ -27,14 +27,14 @@ export const HamburgerMenu = () => {
     };
 
     const menu = document.querySelectorAll('menu li');
-    for (let item of menu) {
+    for (const item of menu) {
       item.addEventListener('click', closeMenu);
     }
 
     document.addEventListener('click', closeIfClickedOutside);
 
     return () => {
-      for (let item of menu) {
+      for (const item of menu) {
         item.removeEventListener('click', closeMenu);
       }
       document.removeEventListener('click', closeIfClickedOutside);

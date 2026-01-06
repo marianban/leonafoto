@@ -14,9 +14,10 @@ export default async function handler(
     // e.g. for "/blog/[slug]" this should be "/blog/post-1"
     await res.revalidate('/');
     return res.json({ revalidated: true });
-  } catch (err) {
+  } catch (error) {
     // If there was an error, Next.js will continue
     // to show the last successfully generated page
+    console.error(error);
     return res.status(500).send('Error revalidating');
   }
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { ClientGalleryImage } from '../(components)/Gallery/ClientGalleryImage';
 import '../(components)/Gallery/Gallery.css';
 import { useGetImages } from '../(components)/Gallery/useGetImages';
@@ -8,10 +8,6 @@ import { ImageDto } from '../../pages/api/ImageDto';
 
 export const Images = () => {
   const { images, loadMore, refresh, deleteImageById } = useGetImages();
-
-  const loadMoreImages = useCallback(() => {
-    loadMore(images.at(-1)?.id);
-  }, [images, loadMore]);
 
   useEffect(() => {
     loadMore();

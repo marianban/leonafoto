@@ -92,7 +92,6 @@ export const Upload = () => {
         <div className="photo-previews">
           {previewImages.map((url, index) => (
             <picture key={index} className="photo-review img-delete-wrapper">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={url}
                 alt={`Preview ${index}`}

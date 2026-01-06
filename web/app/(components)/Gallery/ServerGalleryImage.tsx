@@ -15,7 +15,7 @@ export const ServerGalleryImage = ({
   const resize = (size: number) => Math.round(size * resizeFactor);
 
   return (
-    <GalleryItemContainer image={image}>
+    <GalleryItemContainer>
       <picture
         className="gallery__item"
         style={{

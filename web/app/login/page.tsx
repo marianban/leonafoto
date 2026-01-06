@@ -1,8 +1,9 @@
 'use client';
 import { Logo } from '../(components)/Logo/Logo';
-import localFont from '@next/font/local';
-import { FormEvent, useState, useEffect } from 'react';
+import localFont from 'next/font/local';
+import { FormEvent, useState } from 'react';
 import './page.css';
+import Link from 'next/link';
 
 const bebasNeueFont = localFont({
   src: '../(fonts)/BebasNeue-RegularSubset.woff2',
@@ -13,10 +14,6 @@ export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    setError('');
-  }, [username, password]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -49,9 +46,9 @@ export default function Login() {
     <>
       <header>
         <h1 className={`logo ${bebasNeueFont.className}`}>
-          <a href="/">
+          <Link href="/">
             <Logo /> LeonaFoto
-          </a>
+          </Link>
         </h1>
       </header>
       <main>

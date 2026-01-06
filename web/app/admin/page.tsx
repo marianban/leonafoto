@@ -1,8 +1,9 @@
 import { Logo } from '../(components)/Logo/Logo';
-import localFont from '@next/font/local';
+import localFont from 'next/font/local';
 import { Upload } from './Upload';
 import { Images } from './Images';
 import './page.css';
+import Link from 'next/link';
 
 const bebasNeueFont = localFont({
   src: '../(fonts)/BebasNeue-RegularSubset.woff2',
@@ -14,9 +15,9 @@ export default function Home() {
     <div>
       <header>
         <h1 className={`logo ${bebasNeueFont.className}`}>
-          <a href="/">
+          <Link href="/">
             <Logo /> LeonaFoto
-          </a>
+          </Link>
         </h1>
       </header>
       <main>

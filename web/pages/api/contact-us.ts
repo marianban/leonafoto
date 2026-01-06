@@ -40,7 +40,7 @@ const parseForm = (req: NextApiRequest) => {
 };
 
 const sendEmail = async (email: string, message: string) => {
-  let transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: 465,
     secure: true,

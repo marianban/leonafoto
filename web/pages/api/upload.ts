@@ -5,12 +5,10 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 import formidable, { Fields, File, Files } from 'formidable';
-import path, { join } from 'path';
 import { mkdir, stat } from 'fs/promises';
-import { PrismaClient } from '@prisma/client';
 import { promisify } from 'util';
 import { imageSize } from 'image-size';
-import { env } from 'process';
+import prisma from '../../lib/prisma';
 const sizeOf = promisify(imageSize);
 
 type Data = {
@@ -34,17 +32,20 @@ const isFileValid = (file: { mimetype: string | null }) => {
 const initGalleryDir = async (uploadDir: string) => {
   try {
     await stat(uploadDir);
-  } catch (e: any) {
-    if (e.code === 'ENOENT') {
+  } catch (error) {
+    if (
+      error &&
+      typeof error === 'object' &&
+      'code' in error &&
+      (error as NodeJS.ErrnoException).code === 'ENOENT'
+    ) {
       await mkdir(uploadDir, { recursive: true });
     } else {
-      console.error(e);
+      console.error(error);
       return;
     }
   }
 };
-
-const prisma = new PrismaClient();
 
 const parseForm = (
   req: NextApiRequest

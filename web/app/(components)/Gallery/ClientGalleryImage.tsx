@@ -22,7 +22,7 @@ export const ClientGalleryImage = ({
   };
 
   return (
-    <GalleryItemContainer image={image}>
+    <GalleryItemContainer>
       <picture
         className="gallery__item"
         style={{

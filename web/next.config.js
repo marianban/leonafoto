@@ -1,10 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['leonafoto.closure.sk', 'leonafoto.sk'],
-  },
-  experimental: {
-    appDir: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'leonafoto.closure.sk',
+      },
+      {
+        protocol: 'https',
+        hostname: 'leonafoto.sk',
+      },
+    ],
   },
 };
 

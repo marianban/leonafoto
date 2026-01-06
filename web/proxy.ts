@@ -1,4 +1,4 @@
-// middleware.ts
+// proxy.ts
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { jwtVerify } from 'jose';
@@ -14,8 +14,8 @@ export const config = {
 // https://github.com/vercel/examples/blob/main/edge-middleware/jwt-authentication/lib/auth.ts
 
 // This function can be marked `async` if using `await` inside
-export async function middleware(request: NextRequest) {
-  let cookie = request.cookies.get('auth_token')?.value;
+export async function proxy(request: NextRequest) {
+  const cookie = request.cookies.get('auth_token')?.value;
 
   if (!cookie) {
     return NextResponse.redirect(new URL('/login', request.url));
@@ -42,7 +42,7 @@ export async function middleware(request: NextRequest) {
         audience: process.env.AUTH_AUDIENCE,
       }
     );
-  } catch (err) {
+  } catch {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 

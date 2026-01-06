@@ -4,7 +4,10 @@ export const ContactUs = () => {
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new URLSearchParams(new FormData(e.currentTarget) as any);
+    const formEntries = Array.from(new FormData(e.currentTarget).entries()).map(
+      ([key, value]) => [key, String(value)]
+    );
+    const formData = new URLSearchParams(formEntries);
     const action = e.currentTarget.action;
     const method = e.currentTarget.method;
 

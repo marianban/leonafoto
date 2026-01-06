@@ -1,6 +1,6 @@
 'use client';
 
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import { Image as HeroImage } from './types';
 import { galleryImage } from '../galleryImage';
 
@@ -8,13 +8,10 @@ export const ImageWidth = 410;
 export const HeroImgWidth = ImageWidth + 10 + 10;
 
 interface HeroImgProps {
-  src: string;
-  left: number;
-  loading: boolean;
   image: HeroImage;
 }
 
-export const HeroImg = ({ src, left, loading, image }: HeroImgProps) => {
+export const HeroImg = ({ image }: HeroImgProps) => {
   return (
     <figure
       aria-hidden="true"

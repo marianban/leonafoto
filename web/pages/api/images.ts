@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ImageDto } from './ImageDto';
+import prisma from '../../lib/prisma';
 
 type Data =
   | {
@@ -9,8 +9,6 @@ type Data =
   | {
       error: string;
     };
-
-const prisma = new PrismaClient();
 
 export const getImagesByCursor = async (pageSize: number, id?: number) => {
   const images = await prisma.image.findMany({

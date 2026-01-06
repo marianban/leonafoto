@@ -1,9 +1,7 @@
-import { PrismaClient } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
 import { unlink } from 'fs/promises';
-
-const prisma = new PrismaClient();
+import prisma from '../../lib/prisma';
 
 type Data =
   | {
