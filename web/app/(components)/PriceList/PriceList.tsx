@@ -30,12 +30,12 @@ export const PriceList = () => {
           <PriceListItem
             title="Malý balíček"
             description="5 upravených fotiek"
-            price="30 €"
+            price="45 €"
           />
           <PriceListItem
             title="Veľký balíček"
             description="10 upravených fotiek"
-            price="50 €"
+            price="60 €"
           />
           <PriceListItem title="Každá ďalšia fotka" price="4 €" />
         </div>

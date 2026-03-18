@@ -40,7 +40,7 @@ const parseForm = (req: NextApiRequest) => {
 };
 
 const sendEmail = async (email: string, message: string) => {
-  let transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: 465,
     secure: true,
@@ -50,10 +50,13 @@ const sendEmail = async (email: string, message: string) => {
     },
   });
 
+  const fromAddress = process.env.SMTP_USER;
+
   await transporter.sendMail({
-    from: email, // sender address
+    from: fromAddress,
     to: process.env.CONTACT_US_TO, // list of receivers
-    subject: 'Test email', // Subject line
+    replyTo: email,
+    subject: `Dopyt fotenie od ${email}`, // Subject line
     text: message, // plain text body
   });
 };
@@ -93,7 +96,7 @@ const validateForm = async (data: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
-    }
+    },
   );
 
   const recaptchaData = (await response.json()) as RecaptchaData;
@@ -121,7 +124,7 @@ const validateRequest = (req: NextApiRequest): ValidationResult => {
 
   if (
     !req.headers['content-type']?.startsWith(
-      'application/x-www-form-urlencoded'
+      'application/x-www-form-urlencoded',
     )
   ) {
     return [false, 'Invalid content type'];
@@ -142,11 +145,13 @@ const validateRequest = (req: NextApiRequest): ValidationResult => {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   try {
-    if (!validateRequest(req)) {
-      res.status(400).json({ error: 'Invalid request' });
+    const [isRequestValid, requestError] = validateRequest(req);
+
+    if (!isRequestValid) {
+      res.status(400).json({ error: requestError });
       return;
     }
 
