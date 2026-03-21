@@ -1,17 +1,15 @@
-import formidable from 'formidable';
 import jwt from 'jsonwebtoken';
 import { NextApiRequest, NextApiResponse } from 'next';
 import bcrypt from 'bcrypt';
 import fs from 'fs/promises';
 
-// need to disable body parser for formidable to work
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 type ValidationResult = [false, string] | [true];
+
+type LoginRequestBody = {
+  username?: unknown;
+  password?: unknown;
+  token?: unknown;
+};
 
 type RecaptchaData = {
   success: boolean;
@@ -19,43 +17,31 @@ type RecaptchaData = {
   'error-codes': string[];
 };
 
-const parseForm = (req: NextApiRequest) => {
-  return new Promise<{
-    fields: formidable.Fields;
-    files: formidable.Files;
-  }>((resolve, reject) => {
-    try {
-      const form = formidable({
-        multiples: false,
-        maxFieldsSize: 1 * 1024 * 1024, // 1 MB
-        maxFiles: 0,
-      });
-      form.parse(req, (err, fields, files) => {
-        if (err) reject({ err });
-        resolve({ fields, files });
-      });
-      // resolve({ fields: {}, files: {} });
-    } catch (err) {
-      reject({ err });
-    }
-  });
-};
-
-const validateForm = async (data: {
-  fields: formidable.Fields;
-}): Promise<ValidationResult> => {
-  const { username, password, token } = data.fields;
-
-  if (!username || !username || !token) {
-    return [false, 'Missing required fields'];
+const getSingleBodyValue = (value: unknown) => {
+  if (typeof value === 'string') {
+    return value;
   }
 
   if (
-    Array.isArray(username) ||
-    Array.isArray(password) ||
-    Array.isArray(token)
+    Array.isArray(value) &&
+    value.length === 1 &&
+    typeof value[0] === 'string'
   ) {
-    return [false, 'Invalid data'];
+    return value[0];
+  }
+
+  return undefined;
+};
+
+const validateForm = async (
+  body: LoginRequestBody,
+): Promise<ValidationResult> => {
+  const username = getSingleBodyValue(body.username);
+  const password = getSingleBodyValue(body.password);
+  const token = getSingleBodyValue(body.token);
+
+  if (!username || !password || !token) {
+    return [false, 'Missing required fields'];
   }
 
   if (username.length > 100) {
@@ -75,7 +61,7 @@ const validateForm = async (data: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
-    }
+    },
   );
 
   const recaptchaData = (await response.json()) as RecaptchaData;
@@ -133,6 +119,7 @@ async function checkCredentials(username: string, password: string) {
     >;
 
     const user = users[username];
+
     if (!user) {
       return false;
     }
@@ -151,25 +138,34 @@ async function checkCredentials(username: string, password: string) {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   try {
-    if (!validateRequest(req)) {
-      res.status(400).json({ error: 'Invalid request' });
+    const [isRequestValid, requestError] = validateRequest(req);
+
+    if (!isRequestValid) {
+      res.status(400).json({ error: requestError });
       return;
     }
 
-    const data = await parseForm(req);
+    const body = (req.body ?? {}) as LoginRequestBody;
 
-    const [isValid, error] = await validateForm(data);
+    const [isValid, error] = await validateForm(body);
 
     if (!isValid) {
       res.status(400).json({ error });
       return;
     }
 
-    const { username, password } = data.fields;
-    if (!(await checkCredentials(username as string, password as string))) {
+    const username = getSingleBodyValue(body.username);
+    const password = getSingleBodyValue(body.password);
+
+    if (!username || !password) {
+      res.status(400).json({ error: 'Missing required fields' });
+      return;
+    }
+
+    if (!(await checkCredentials(username, password))) {
       res.status(400).json({ error: 'Invalid credentials' });
       return;
     }
@@ -197,12 +193,12 @@ export default async function handler(
     if (process.env.NODE_ENV === 'production') {
       res.setHeader(
         'Set-Cookie',
-        `auth_token=${token}; Path=/; HttpOnly; Secure; SameSite=Strict`
+        `auth_token=${token}; Path=/; HttpOnly; Secure; SameSite=Strict`,
       );
     } else {
       res.setHeader(
         'Set-Cookie',
-        `auth_token=${token}; Path=/; HttpOnly; SameSite=Strict`
+        `auth_token=${token}; Path=/; HttpOnly; SameSite=Strict`,
       );
     }
 

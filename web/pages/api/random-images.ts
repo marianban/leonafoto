@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
+import prisma from '../../lib/prisma';
 
 type Data =
   | {
@@ -8,8 +8,6 @@ type Data =
   | {
       error: string;
     };
-
-const prisma = new PrismaClient();
 
 const getRandomImages = async (pageSize: number, excluded: string[]) => {
   return await prisma.$queryRaw<

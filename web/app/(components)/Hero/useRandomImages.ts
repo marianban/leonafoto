@@ -1,10 +1,4 @@
-import {
-  MutableRefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { MutableRefObject, useCallback, useRef, useState } from 'react';
 import type { Image } from './types';
 
 interface Response {
@@ -25,7 +19,7 @@ export const useRandomImages = ({
 }: {
   lastIdRef: MutableRefObject<number>;
 }) => {
-  const abortControllerRef = useRef<AbortController>();
+  const abortControllerRef = useRef<AbortController>(undefined);
   const [isLoading, setIsLoading] = useState(false);
 
   const loadMore = useCallback(
@@ -57,7 +51,7 @@ export const useRandomImages = ({
         })
         .finally(() => setIsLoading(false));
     },
-    [setIsLoading, lastIdRef]
+    [setIsLoading, lastIdRef],
   );
 
   const abort = useCallback(() => {

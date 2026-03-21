@@ -1,16 +1,10 @@
 import './Services.css';
 import Image, { StaticImageData } from 'next/image';
-import baby from './images/undraw_baby_p4dd 1.png';
 import baby2x from './images/undraw_baby_p4dd 1-2.png';
-import birthday from './images/undraw_birthday_girl_n46w 1.png';
 import birthday2x from './images/undraw_birthday_girl_n46w 1-2.png';
-import christmass from './images/undraw_christmas_tree_-56-sw 1.png';
 import christmass2x from './images/undraw_christmas_tree_-56-sw 1-2.png';
-import dollPlay from './images/undraw_doll_play_evbw 1.png';
 import dollPlay2x from './images/undraw_doll_play_evbw 1-2.png';
-import family from './images/undraw_family_vg76 1.png';
 import family2x from './images/undraw_family_vg76 1-2.png';
-import photoshoot from './images/undraw_fashion_photoshoot_mtq8 1.png';
 import photoshoot2x from './images/undraw_fashion_photoshoot_mtq8 1-2.png';
 import love from './images/undraw_Love_it_7c9l.png';
 

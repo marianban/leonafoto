@@ -1,23 +1,32 @@
-import { useCallback, useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
 export const useAnimationFrame = (callback: (delta: number) => void) => {
-  const animateRef = useRef<number>(0);
-  const prevTimeRef = useRef(new Date().getTime());
-  const animate = useCallback(() => {
-    const now = new Date().getTime();
-    const delta = now - prevTimeRef.current;
-    prevTimeRef.current = now;
+  const animateRef = useRef<number | null>(null);
+  const prevTimeRef = useRef<number | null>(null);
+  const callbackRef = useRef(callback);
 
-    callback(delta);
-
-    animateRef.current = window.requestAnimationFrame(animate);
+  useLayoutEffect(() => {
+    callbackRef.current = callback;
   }, [callback]);
 
   useLayoutEffect(() => {
-    animate();
+    const animate = (time: number) => {
+      if (prevTimeRef.current === null) {
+        prevTimeRef.current = time;
+      }
+
+      const delta = time - prevTimeRef.current;
+      prevTimeRef.current = time;
+      callbackRef.current(delta);
+      animateRef.current = window.requestAnimationFrame(animate);
+    };
+
+    animateRef.current = window.requestAnimationFrame(animate);
 
     return () => {
-      cancelAnimationFrame(animateRef.current);
+      if (animateRef.current !== null) {
+        cancelAnimationFrame(animateRef.current);
+      }
     };
-  }, [animate]);
+  }, []);
 };

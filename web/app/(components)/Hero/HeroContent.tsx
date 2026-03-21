@@ -3,13 +3,7 @@
 import { HeroImg, HeroImgWidth } from './HeroImg';
 import { useWindowSize } from './useWindowSize';
 
-import {
-  useCallback,
-  useState,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-} from 'react';
+import { useCallback, useState, useEffect, useRef } from 'react';
 import { useAnimationFrame } from './useAnimationFrame';
 import { useRandomImages } from './useRandomImages';
 import type { Image } from './types';
@@ -35,7 +29,7 @@ const fillSrcs = (
   return newSrcs;
 };
 
-const takeNRandomItems = <T extends unknown>(items: T[], n: number): T[] => {
+const takeNRandomItems = <T,>(items: T[], n: number): T[] => {
   const newItems = [...items];
   const takenItems = [];
   for (let i = 0; i < n; i++) {
@@ -49,11 +43,11 @@ const takeNRandomItems = <T extends unknown>(items: T[], n: number): T[] => {
 export const HeroContent = () => {
   const { width } = useWindowSize();
 
-  const [offset, setOffset] = useState(0);
   const [allImages, setAllImages] = useState<Omit<Image, 'left'>[]>();
   const [images, setImages] = useState<Image[]>([]);
+  const offsetRef = useRef(0);
   const lastIdRef = useRef(0);
-  const { loadMore, abort, isLoading } = useRandomImages({ lastIdRef });
+  const { loadMore, abort } = useRandomImages({ lastIdRef });
   const numberOfImages = width
     ? Math.ceil(width / HeroImgWidth) * 2
     : undefined;
@@ -75,94 +69,84 @@ export const HeroContent = () => {
     };
   }, [abort, loadMore, width]);
 
-  useEffect(() => {
-    if (!allImages || allImages.length === 0) {
-      return;
-    }
-    if (numberOfImages === undefined) {
-      return;
-    }
-
-    if (numberOfImages < images.length) {
-      setImages((images) => images.slice(0, numberOfImages));
-    }
-    if (numberOfImages > images.length) {
-      setImages(
-        fillSrcs(allImages, numberOfImages, lastIdRef).map((img, index) => ({
-          ...img,
-          left: HeroImgWidth * index - 0.1,
-        }))
-      );
-    }
-  }, [allImages, numberOfImages, images]);
-
   const animationCallback = useCallback(
     (delta: number) => {
-      if (width !== undefined) {
-        // math.round to make sure it always starts at 0
-        setOffset((o) => Math.round(o + delta / 30));
+      if (width === undefined) {
+        return;
       }
+
+      const nextOffset = Math.round(offsetRef.current + delta / 30);
+      offsetRef.current = nextOffset;
+
+      if (!allImages || numberOfImages === undefined) {
+        return;
+      }
+
+      setImages((currentImages) => {
+        let baseImages = currentImages;
+
+        if (currentImages.length !== numberOfImages) {
+          baseImages = fillSrcs(allImages, numberOfImages, lastIdRef).map(
+            (img, index) => ({
+              ...img,
+              left: HeroImgWidth * index - 0.1,
+            })
+          );
+        }
+
+        if (baseImages.length === 0) {
+          return baseImages;
+        }
+
+        const shift = nextOffset % (-HeroImgWidth * (baseImages.length / 2));
+        const newImages = baseImages.map((image, index) => ({
+          ...image,
+          left: HeroImgWidth * index - shift,
+        }));
+
+        if (newImages.every((image) => image.left >= 0)) {
+          const lastImages = newImages.slice(newImages.length / 2);
+
+          const alreadyLoadedImages = newImages
+            .slice(0, newImages.length / 2)
+            .map((image, index) => ({
+              ...image,
+              id: lastImages[index].id,
+              src: lastImages[index].src,
+            }));
+
+          const randomImages = takeNRandomItems(
+            allImages.filter(
+              (i) => !alreadyLoadedImages.some((li) => li.id === i.id)
+            ),
+            lastImages.length
+          );
+
+          const imagesToLoad = lastImages.map((img, i) => ({
+            ...randomImages[i],
+            left: img.left,
+          }));
+
+          return [...alreadyLoadedImages, ...imagesToLoad].map((img) => ({
+            ...img,
+            left: img.left - 0.1,
+          }));
+        }
+
+        return newImages;
+      });
     },
-    [setOffset, width]
+    [allImages, numberOfImages, setImages, width]
   );
 
   useAnimationFrame(animationCallback);
 
-  useLayoutEffect(() => {
-    if (!allImages) {
-      return;
-    }
-
-    setImages((images) => {
-      const newImages = images.map((image, index) => ({
-        ...image,
-        left:
-          HeroImgWidth * index -
-          (offset % (-HeroImgWidth * (images.length / 2))),
-      }));
-
-      if (newImages.length && newImages.every((image) => image.left >= 0)) {
-        const lastImages = newImages.slice(newImages.length / 2);
-
-        const alreadyLoadedImages = newImages
-          .slice(0, newImages.length / 2)
-          .map((image, index) => ({
-            ...image,
-            id: lastImages[index].id,
-            src: lastImages[index].src,
-          }));
-
-        const randomImages = takeNRandomItems(
-          allImages.filter(
-            (i) => !alreadyLoadedImages.some((li) => li.id === i.id)
-          ),
-          lastImages.length
-        );
-
-        const imagesToLoad = lastImages.map((img, i) => ({
-          ...randomImages[i],
-          left: img.left,
-        }));
-
-        return [...alreadyLoadedImages, ...imagesToLoad].map((img) => ({
-          ...img,
-          left: img.left - 0.1,
-        }));
-      }
-
-      return newImages;
-    });
-  }, [offset, setImages, allImages]);
-
   return (
     <>
-      {images.map((image, index) =>
+      {images.map((image) =>
         image.src ? (
           <HeroImg
             key={image.id}
-            src={`/gallery/${image.src}`}
-            left={image.left}
-            loading={image.loading}
             image={image}
           />
         ) : null

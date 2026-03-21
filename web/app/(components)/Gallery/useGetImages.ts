@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import { ImageDto } from '../../../pages/api/ImageDto';
+import type { ImageDto } from '../../../lib/ImageDto';
 
 interface Response {
   images: ImageDto[];
@@ -18,7 +18,7 @@ export const useGetImages = ({ size }: { size?: number } = {}) => {
   const [images, setImages] = useState<ImageDto[]>([]);
   const [moreToLoad, setMoreToLoad] = useState(true);
   const [inProgress, setInProgress] = useState(false);
-  const abortControllerRef = useRef<AbortController>();
+  const abortControllerRef = useRef<AbortController>(undefined);
 
   const loadMore = useCallback(
     (prevImageId?: number) => {
@@ -35,7 +35,7 @@ export const useGetImages = ({ size }: { size?: number } = {}) => {
         })
         .finally(() => setInProgress(false));
     },
-    [size, abortControllerRef]
+    [size, abortControllerRef],
   );
 
   const abort = useCallback(() => {
@@ -46,7 +46,7 @@ export const useGetImages = ({ size }: { size?: number } = {}) => {
     (id: number) => {
       setImages((imgs) => imgs.filter((img) => img.id !== id));
     },
-    [setImages]
+    [setImages],
   );
 
   const refresh = useCallback(() => {

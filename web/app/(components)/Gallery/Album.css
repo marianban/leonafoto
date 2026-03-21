@@ -49,7 +49,7 @@ body:has(.album) {
 
 .album__image img {
   position: absolute;
-  width: auto;
+  width: 100%;
   height: 100%;
   object-fit: contain;
   background-color: #222;
@@ -129,7 +129,9 @@ body:has(.album) {
   background-color: #222;
   padding: 0.5rem 1rem 0.5rem 0.5rem;
   /* opacity: 0.5; */
-  transition: opacity 0.25s ease-in-out, background-color 0.25s ease-in-out,
+  transition:
+    opacity 0.25s ease-in-out,
+    background-color 0.25s ease-in-out,
     color 0.25s ease-in-out;
 }
 

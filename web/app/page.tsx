@@ -9,8 +9,9 @@ import { Services } from './(components)/Services/Services';
 import { WhoAmI } from './(components)/WhoAmI/WhoAmI';
 import { HamburgerMenu } from './(components)/HamburgerMenu/HamburgerMenu';
 
-import localFont from '@next/font/local';
+import localFont from 'next/font/local';
 import { ClientMenu } from './ClientMenu';
+import Link from 'next/link';
 
 const bebasNeueFont = localFont({
   src: './(fonts)/BebasNeue-RegularSubset.woff2',
@@ -31,22 +32,22 @@ export default function Home() {
         <HamburgerMenu />
         <menu>
           <li>
-            <a href="/#o-mne">O mne</a>
+            <Link href="/#o-mne">O mne</Link>
           </li>
           <li>
-            <a href="/#ponuka">Ponuka</a>
+            <Link href="/#ponuka">Ponuka</Link>
           </li>
           <li>
-            <a href="/#fotenie">Fotenie</a>
+            <Link href="/#fotenie">Fotenie</Link>
           </li>
           <li>
-            <a href="/#cennik">Cenník</a>
+            <Link href="/#cennik">Cenník</Link>
           </li>
           <li>
-            <a href="/#galeria">Galéria</a>
+            <Link href="/#galeria">Galéria</Link>
           </li>
           <li className="contact">
-            <a href="/#kontakt">Kontakt</a>
+            <Link href="/#kontakt">Kontakt</Link>
           </li>
         </menu>
         <ClientMenu />
@@ -57,8 +58,6 @@ export default function Home() {
         <Services />
         <Photography />
         <PriceList />
-        {/*
-// @ts-ignore */}
         <Gallery />
       </main>
       <Footer />

@@ -36,6 +36,13 @@
   user-select: none;
 }
 
+.hero-img__frame {
+  width: 410px;
+  height: 278px;
+  position: relative;
+  overflow: hidden;
+}
+
 .hero-img__loading {
   background: #2d3138;
   width: 100%;

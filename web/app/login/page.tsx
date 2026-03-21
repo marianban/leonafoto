@@ -1,8 +1,9 @@
 'use client';
 import { Logo } from '../(components)/Logo/Logo';
-import localFont from '@next/font/local';
-import { FormEvent, useState, useEffect } from 'react';
+import localFont from 'next/font/local';
+import { FormEvent, useState } from 'react';
 import './page.css';
+import Link from 'next/link';
 
 const bebasNeueFont = localFont({
   src: '../(fonts)/BebasNeue-RegularSubset.woff2',
@@ -14,13 +15,14 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    setError('');
-  }, [username, password]);
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
+
+    if (typeof grecaptcha === 'undefined') {
+      setError('reCAPTCHA not ready. Please try again.');
+      return;
+    }
 
     grecaptcha.ready(() => {
       grecaptcha
@@ -49,9 +51,9 @@ export default function Login() {
     <>
       <header>
         <h1 className={`logo ${bebasNeueFont.className}`}>
-          <a href="/">
+          <Link href="/">
             <Logo /> LeonaFoto
-          </a>
+          </Link>
         </h1>
       </header>
       <main>
@@ -60,6 +62,8 @@ export default function Login() {
             Meno
             <input
               type="text"
+              name="username"
+              autoComplete="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -68,6 +72,8 @@ export default function Login() {
             Heslo
             <input
               type="password"
+              name="password"
+              autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

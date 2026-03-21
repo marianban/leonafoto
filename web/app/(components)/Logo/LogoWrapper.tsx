@@ -1,13 +1,14 @@
 'use client';
 
+import Link from 'next/link';
+
 export const LogoWrapper = ({ children }: { children: React.ReactNode }) => {
-  const handleLogoClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
+  const handleLogoClick = () => {
     window.scrollTo({ top: 0, left: 0 });
   };
   return (
-    <a href="/" onClick={handleLogoClick}>
+    <Link href="/" onClick={handleLogoClick}>
       {children}
-    </a>
+    </Link>
   );
 };
