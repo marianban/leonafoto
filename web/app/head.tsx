@@ -27,13 +27,6 @@ const structuredData = `{
 export default function Head() {
   return (
     <>
-      <title>LeonaFoto | Fotenie detí, rodiny, tehotenské fotenie</title>
-      <meta content="width=device-width, initial-scale=1" name="viewport" />
-      <meta
-        name="description"
-        content="Annamária Bánová fotografka špecializujúca sa na fotografovanie detí, rodín a tehotných žien. Objavte krásu a emócie zachytené v jedinečných portrétoch a spomienkach, ktoré si budete ceniť navždy."
-      />
-      <link rel="icon" href="/favicon.ico" />
       <link
         rel="stylesheet"
         href="https://use.typekit.net/nrv5kao.css"

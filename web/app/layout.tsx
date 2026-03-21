@@ -1,6 +1,21 @@
 import './reset.css';
 import './globals.css';
+import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
+
+export const metadata: Metadata = {
+  title: 'LeonaFoto | Fotenie deti, rodiny, tehotenske fotenie',
+  description:
+    'Annamaria Banova, fotografka specializujuca sa na fotografovanie deti, rodin a tehotnych zien. Objavte krasu a emocie zachytene v jedinecnych portretoch a spomienkach, ktore si budete cenit navzdy.',
+  icons: {
+    icon: '/favicon.ico',
+  },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
 
 export default function RootLayout({
   children,
@@ -11,10 +26,6 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
       <head />
       <body>
         {recaptchaSiteKey ? (
