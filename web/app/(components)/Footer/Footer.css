@@ -132,6 +132,13 @@ footer button:active {
   animation: footer-spin 0.75s linear infinite;
 }
 
+.footer__item-button-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: currentColor;
+  flex: 0 0 auto;
+}
+
 .footer__item-status {
   min-height: 3.25rem;
   margin: 1rem 0 0;

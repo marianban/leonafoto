@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { PaperPlane } from '../icons/PaperPlane';
 
 type SubmitState =
   | { type: 'idle'; message: '' }
@@ -146,7 +147,13 @@ export const ContactUs = () => {
             Odosielam...
           </>
         ) : (
-          'Odoslať'
+          <>
+            <PaperPlane
+              className="footer__item-button-icon"
+              aria-hidden="true"
+            />
+            Odoslať správu
+          </>
         )}
       </button>
 
