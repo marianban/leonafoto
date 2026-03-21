@@ -6,10 +6,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import formidable, { Fields, File, Files } from 'formidable';
 import { mkdir, stat } from 'fs/promises';
-import { promisify } from 'util';
-import { imageSize } from 'image-size';
+import { imageSizeFromFile } from 'image-size/fromFile';
 import prisma from '../../lib/prisma';
-const sizeOf = promisify(imageSize);
 
 type Data = {
   count: number;
@@ -48,7 +46,7 @@ const initGalleryDir = async (uploadDir: string) => {
 };
 
 const parseForm = (
-  req: NextApiRequest
+  req: NextApiRequest,
 ): Promise<{ fields: Fields; files: Files }> => {
   return new Promise(async (resolve, reject) => {
     if (!process.env.IMAGES_DIR) {
@@ -71,6 +69,7 @@ const parseForm = (
       console.log('parsed form');
       if (err) {
         reject(err);
+        return;
       }
       resolve({ fields, files });
     });
@@ -78,11 +77,15 @@ const parseForm = (
 };
 
 export const saveImagesToDb = async (files: Files) => {
-  const images = Array.isArray(files['images'])
-    ? files['images']
-    : [files['images']];
+  const parsedImages = files['images'];
+
+  if (!parsedImages) {
+    return [];
+  }
+
+  const images = Array.isArray(parsedImages) ? parsedImages : [parsedImages];
   const createImagePromises = images.map(async (image: File) => {
-    const dimensions = await sizeOf(image.filepath);
+    const dimensions = await imageSizeFromFile(image.filepath);
     if (!dimensions) {
       throw new Error('Could not get image dimensions');
     }
@@ -102,14 +105,14 @@ export const saveImagesToDb = async (files: Files) => {
 
 export const revalidate = async () => {
   return fetch(
-    `${process.env.BASE_URL}/api/revalidate?secret=${process.env.REVALIDATE_SECRET}`
+    `${process.env.BASE_URL}/api/revalidate?secret=${process.env.REVALIDATE_SECRET}`,
   );
 };
 
 // next.js api route
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data>,
 ) {
   try {
     if (req.method === 'POST') {

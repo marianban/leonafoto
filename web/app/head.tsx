@@ -40,10 +40,6 @@ export default function Head() {
         // @ts-expect-error precedence is allowed by Next.js
         precedence="default"
       />
-      <script
-        src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-        async
-      ></script>
       {process.env.NODE_ENV === 'production' && (
         <script
           async

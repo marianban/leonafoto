@@ -4,8 +4,13 @@ export const ContactUs = () => {
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (typeof grecaptcha === 'undefined') {
+      console.error('reCAPTCHA not ready.');
+      return;
+    }
+
     const formEntries = Array.from(new FormData(e.currentTarget).entries()).map(
-      ([key, value]) => [key, String(value)]
+      ([key, value]) => [key, String(value)],
     );
     const formData = new URLSearchParams(formEntries);
     const action = e.currentTarget.action;
@@ -41,10 +46,11 @@ export const ContactUs = () => {
       <label>
         Váš email:
         <input
-          type="mail"
+          type="email"
           name="email"
           placeholder="Email"
           className="footer__item-input"
+          autoComplete="email"
         />
       </label>
 
@@ -54,6 +60,7 @@ export const ContactUs = () => {
           name="message"
           placeholder="Správa"
           className="footer__item-textarea"
+          autoComplete="on"
         ></textarea>
       </label>
 

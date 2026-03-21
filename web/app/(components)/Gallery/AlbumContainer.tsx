@@ -1,16 +1,12 @@
 'use client';
 
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Album } from './Album';
 
 export const AlbumContainer = () => {
   const [open, setOpen] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
-  const portalRoot =
-    typeof document === 'undefined'
-      ? null
-      : document.querySelector<HTMLElement>('#modal-root');
 
   const handleOnClose = () => {
     setOpen(false);
@@ -23,6 +19,7 @@ export const AlbumContainer = () => {
         setImageIndex((event as CustomEvent).detail);
         return;
       }
+
       setImageIndex(Number((event.target as HTMLElement).dataset.imageIndex));
     };
 
@@ -41,16 +38,20 @@ export const AlbumContainer = () => {
     };
   }, []);
 
-  return portalRoot
-    ? createPortal(
-        <div>
-          {open && (
-            <div className="modal-container">
-              <Album onClose={handleOnClose} imageIndex={imageIndex} />
-            </div>
-          )}
-        </div>,
-        portalRoot
-      )
-    : null;
+  if (!open) {
+    return null;
+  }
+
+  const portalRoot = document.querySelector<HTMLElement>('#modal-root');
+
+  if (!portalRoot) {
+    return null;
+  }
+
+  return createPortal(
+    <div className="modal-container">
+      <Album onClose={handleOnClose} imageIndex={imageIndex} />
+    </div>,
+    portalRoot,
+  );
 };

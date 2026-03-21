@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'leonafoto.sk',
       },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
     ],
   },
 };

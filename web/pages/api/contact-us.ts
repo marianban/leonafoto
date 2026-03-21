@@ -17,6 +17,14 @@ type RecaptchaData = {
   'error-codes': string[];
 };
 
+const getSingleFieldValue = (field: string | string[] | undefined) => {
+  if (Array.isArray(field)) {
+    return field.length === 1 ? field[0] : undefined;
+  }
+
+  return field;
+};
+
 const parseForm = (req: NextApiRequest) => {
   return new Promise<{
     fields: formidable.Fields;
@@ -61,14 +69,12 @@ const sendEmail = async (email: string, message: string) => {
 const validateForm = async (data: {
   fields: formidable.Fields;
 }): Promise<ValidationResult> => {
-  const { email, message, token } = data.fields;
+  const email = getSingleFieldValue(data.fields.email);
+  const message = getSingleFieldValue(data.fields.message);
+  const token = getSingleFieldValue(data.fields.token);
 
   if (!email || !message || !token) {
     return [false, 'Missing required fields'];
-  }
-
-  if (Array.isArray(email) || Array.isArray(message) || Array.isArray(token)) {
-    return [false, 'Invalid data'];
   }
 
   if (!email.includes('@') || email.length < 3) {
@@ -93,7 +99,7 @@ const validateForm = async (data: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
-    }
+    },
   );
 
   const recaptchaData = (await response.json()) as RecaptchaData;
@@ -121,7 +127,7 @@ const validateRequest = (req: NextApiRequest): ValidationResult => {
 
   if (
     !req.headers['content-type']?.startsWith(
-      'application/x-www-form-urlencoded'
+      'application/x-www-form-urlencoded',
     )
   ) {
     return [false, 'Invalid content type'];
@@ -142,11 +148,13 @@ const validateRequest = (req: NextApiRequest): ValidationResult => {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   try {
-    if (!validateRequest(req)) {
-      res.status(400).json({ error: 'Invalid request' });
+    const [isRequestValid, requestError] = validateRequest(req);
+
+    if (!isRequestValid) {
+      res.status(400).json({ error: requestError });
       return;
     }
 
@@ -159,8 +167,15 @@ export default async function handler(
       return;
     }
 
-    const { email, message } = data.fields;
-    await sendEmail(email as string, message as string);
+    const email = getSingleFieldValue(data.fields.email);
+    const message = getSingleFieldValue(data.fields.message);
+
+    if (!email || !message) {
+      res.status(400).json({ error: 'Missing required fields' });
+      return;
+    }
+
+    await sendEmail(email, message);
 
     res.status(200).end();
   } catch (err) {

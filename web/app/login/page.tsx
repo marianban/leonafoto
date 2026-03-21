@@ -19,6 +19,11 @@ export default function Login() {
     e.preventDefault();
     setError('');
 
+    if (typeof grecaptcha === 'undefined') {
+      setError('reCAPTCHA not ready. Please try again.');
+      return;
+    }
+
     grecaptcha.ready(() => {
       grecaptcha
         .execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string, {
@@ -57,6 +62,8 @@ export default function Login() {
             Meno
             <input
               type="text"
+              name="username"
+              autoComplete="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -65,6 +72,8 @@ export default function Login() {
             Heslo
             <input
               type="password"
+              name="password"
+              autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

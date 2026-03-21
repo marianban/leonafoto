@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ImageDto } from './ImageDto';
+import type { ImageDto } from './ImageDto';
 import prisma from '../../lib/prisma';
 
 type Data =
@@ -28,7 +28,7 @@ export const getImagesByCursor = async (pageSize: number, id?: number) => {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data>,
 ) {
   try {
     if (req.method === 'GET') {

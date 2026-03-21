@@ -21,22 +21,23 @@ export const HeroImg = ({ image }: HeroImgProps) => {
       }}
     >
       {image.loading && (
-        <div
-          className="hero-img__loading"
-          style={{ width: ImageWidth, height: 278 }}
-        >
-          <div className="hero-img__loading__spinner" />
+        <div className="hero-img__frame">
+          <div className="hero-img__loading">
+            <div className="hero-img__loading__spinner" />
+          </div>
         </div>
       )}
 
       {!image.loading && (
-        <Image
-          src={galleryImage(image.src)}
-          alt=""
-          width={ImageWidth}
-          height={278}
-          priority={true}
-        />
+        <div className="hero-img__frame">
+          <Image
+            src={galleryImage(image.src)}
+            alt=""
+            fill={true}
+            sizes={`${ImageWidth}px`}
+            priority={true}
+          />
+        </div>
       )}
     </figure>
   );

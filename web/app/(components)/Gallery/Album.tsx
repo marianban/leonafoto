@@ -28,7 +28,7 @@ export const Album = ({ onClose, imageIndex }: AlbumProps) => {
   const animationRef = useRef<Animation | null>(null);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
   const { width } = useWindowDimensions();
-  const isMobile = width <= 768;
+  const isMobile = width === undefined || width <= 768;
 
   useEffect(() => {
     loadMore();
@@ -56,7 +56,7 @@ export const Album = ({ onClose, imageIndex }: AlbumProps) => {
       return;
     }
     const image = document.querySelector<HTMLElement>(
-      `#image-${images[currentImageIndex].id.toString()}`
+      `#image-${images[currentImageIndex].id.toString()}`,
     );
     if (image) {
       image.scrollIntoView({
@@ -119,7 +119,7 @@ export const Album = ({ onClose, imageIndex }: AlbumProps) => {
     const distance = Math.hypot(end.x - start.x, end.y - start.y);
     const angle = Math.atan2(
       Math.abs(end.y - start.y),
-      Math.abs(end.x - start.x)
+      Math.abs(end.x - start.x),
     );
     // is swipe left
     if (direction === 1 && distance > 50 && Math.abs(angle) < 0.5) {
@@ -146,7 +146,7 @@ export const Album = ({ onClose, imageIndex }: AlbumProps) => {
         easing: 'ease-in',
         duration: 250,
         fill: 'forwards',
-      }
+      },
     );
     animationRef.current = animation;
   };
@@ -203,6 +203,7 @@ export const Album = ({ onClose, imageIndex }: AlbumProps) => {
           src={galleryImage(prevImage.name)}
           alt={prevImage.name}
           fill={true}
+          sizes="100vw"
           style={{ opacity: nextCurrentImageIndex === prevImageIndex ? 1 : 0 }}
         />
         <Image
@@ -210,6 +211,7 @@ export const Album = ({ onClose, imageIndex }: AlbumProps) => {
           src={galleryImage(nextImage.name)}
           alt={nextImage.name}
           fill={true}
+          sizes="100vw"
           style={{ opacity: nextCurrentImageIndex === nextImageIndex ? 1 : 0 }}
         />
         <Image
@@ -218,6 +220,7 @@ export const Album = ({ onClose, imageIndex }: AlbumProps) => {
           src={galleryImage(currentImage.name)}
           alt={currentImage.name}
           fill={true}
+          sizes="100vw"
         />
         <div className="album__image__controls">
           <AngleLeft onClick={handlePrevImage} />
