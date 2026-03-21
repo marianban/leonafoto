@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import type { ImageDto } from '../../../pages/api/ImageDto';
+import type { ImageDto } from '../../../lib/ImageDto';
 
 interface Response {
   images: ImageDto[];

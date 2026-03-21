@@ -19,7 +19,7 @@ export const useRandomImages = ({
 }: {
   lastIdRef: MutableRefObject<number>;
 }) => {
-  const abortControllerRef = useRef<AbortController>();
+  const abortControllerRef = useRef<AbortController>(undefined);
   const [isLoading, setIsLoading] = useState(false);
 
   const loadMore = useCallback(
@@ -51,7 +51,7 @@ export const useRandomImages = ({
         })
         .finally(() => setIsLoading(false));
     },
-    [setIsLoading, lastIdRef]
+    [setIsLoading, lastIdRef],
   );
 
   const abort = useCallback(() => {

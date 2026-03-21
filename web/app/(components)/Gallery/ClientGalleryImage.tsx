@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import type { ImageDto } from '../../../pages/api/ImageDto';
+import type { ImageDto } from '../../../lib/ImageDto';
 import { GalleryItemContainer } from './GalleryItemContainer';
 import { galleryImage } from '../galleryImage';
 

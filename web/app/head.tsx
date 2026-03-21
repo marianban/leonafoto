@@ -37,7 +37,6 @@ export default function Head() {
       <link
         rel="stylesheet"
         href="https://use.typekit.net/nrv5kao.css"
-        // @ts-expect-error precedence is allowed by Next.js
         precedence="default"
       />
       {process.env.NODE_ENV === 'production' && (

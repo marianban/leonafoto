@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { ClientGalleryImage } from '../(components)/Gallery/ClientGalleryImage';
 import '../(components)/Gallery/Gallery.css';
 import { useGetImages } from '../(components)/Gallery/useGetImages';
-import type { ImageDto } from '../../pages/api/ImageDto';
+import type { ImageDto } from '../../lib/ImageDto';
 
 export const Images = () => {
   const { images, loadMore, refresh, deleteImageById } = useGetImages();

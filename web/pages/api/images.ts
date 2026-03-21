@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import type { ImageDto } from './ImageDto';
+import type { ImageDto } from '../../lib/ImageDto';
 import prisma from '../../lib/prisma';
 
 type Data =

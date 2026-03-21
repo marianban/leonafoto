@@ -58,8 +58,6 @@ export default function Home() {
         <Services />
         <Photography />
         <PriceList />
-        {/*
-// @ts-expect-error Gallery is client-only */}
         <Gallery />
       </main>
       <Footer />
