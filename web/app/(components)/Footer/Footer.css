@@ -16,11 +16,8 @@ footer menu {
 
 footer {
   padding-top: 3rem;
-  background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0) 87.55%,
-      rgba(0, 0, 0, 0.15) 100%
-    ),
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 87.55%, rgba(0, 0, 0, 0.15) 100%),
     #2d3138;
   color: rgb(255, 255, 255, 0.9);
 }
@@ -42,24 +39,63 @@ footer label {
   margin-bottom: 1rem;
 }
 
+.footer__item.write-me {
+  min-width: min(100%, 36rem);
+}
+
+.footer__item-form {
+  width: min(100%, 36rem);
+}
+
 footer label input,
 footer label textarea {
+  width: 100%;
   margin-top: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.75rem 0.875rem;
   border-radius: 0.5rem;
   border: 1px solid rgb(255, 255, 255, 0.9);
   color: rgb(255, 255, 255, 0.9);
   background: transparent;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+footer label input::placeholder,
+footer label textarea::placeholder {
+  color: rgb(255, 255, 255, 0.6);
+}
+
+footer label input:focus,
+footer label textarea:focus {
+  outline: none;
+  border-color: #f6d8a7;
+  background: rgb(255, 255, 255, 0.08);
+}
+
+.footer__item-textarea {
+  min-height: 10rem;
+  resize: vertical;
 }
 
 footer button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
   margin-top: 0.5rem;
-  padding: 0.5rem 1rem;
+  min-height: 2.75rem;
+  padding: 0.7rem 1.1rem;
   border-radius: 0.5rem;
   border: 1px solid rgb(255, 255, 255, 0.9);
   color: rgb(255, 255, 255, 0.9);
   background: transparent;
   cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    opacity 0.2s ease;
 }
 
 footer button:hover {
@@ -67,9 +103,55 @@ footer button:hover {
   color: #2d3138;
 }
 
+footer button:disabled {
+  cursor: wait;
+  opacity: 0.75;
+}
+
 footer button:active {
   background: rgb(255, 255, 255, 0.8);
   color: #2d3138;
+}
+
+.footer__item-button-spinner {
+  width: 0.95rem;
+  height: 0.95rem;
+  border: 2px solid rgb(255, 255, 255, 0.35);
+  border-top-color: rgb(255, 255, 255, 0.95);
+  border-radius: 999px;
+  animation: footer-spin 0.75s linear infinite;
+}
+
+.footer__item-status {
+  min-height: 3.25rem;
+  margin: 1rem 0 0;
+  padding: 0.85rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: transparent;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.footer__item-status.is-success {
+  border-color: rgba(196, 233, 168, 0.55);
+  background: rgba(196, 233, 168, 0.14);
+  color: rgb(236, 247, 224, 0.95);
+}
+
+.footer__item-status.is-error {
+  border-color: rgba(255, 180, 180, 0.55);
+  background: rgba(190, 72, 72, 0.18);
+  color: rgb(255, 227, 227, 0.95);
+}
+
+@keyframes footer-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .footer__items {
@@ -89,6 +171,12 @@ footer button:active {
       'write-me'
       'map'
       'menu';
+  }
+
+  .footer__item.write-me,
+  .footer__item-form {
+    min-width: 0;
+    width: 100%;
   }
 }
 
