@@ -24,10 +24,9 @@ export default function Home() {
       <header>
         <h1 className={`logo ${bebasNeueFont.className}`}>
           <LogoWrapper>
-            <>
-              <Logo /> LeonaFoto
-            </>
+            <Logo /> LeonaFoto
           </LogoWrapper>
+          <span className="subtitle">Detská fotografka v Bratislave</span>
         </h1>
         <HamburgerMenu />
         <menu>

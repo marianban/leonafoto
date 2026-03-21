@@ -27,7 +27,7 @@ const structuredData = {
     addressCountry: 'SK',
   },
   image: siteImage,
-  priceRange: 'EUR 30-60',
+  priceRange: 'EUR 45-60',
   currenciesAccepted: 'EUR',
   paymentAccepted: 'Hotovosť, Prevod na účet',
   areaServed: 'Slovakia',

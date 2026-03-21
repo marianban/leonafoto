@@ -81,6 +81,8 @@ header {
 header .logo {
   opacity: 0.8;
   margin-top: 4px;
+  display: flex;
+  flex-direction: column;
 }
 
 header .logo a {
@@ -91,6 +93,7 @@ header .logo a {
   display: flex;
   align-items: center;
   gap: 1rem;
+  line-height: 1em;
 }
 
 header .logo a svg {
@@ -242,4 +245,9 @@ img {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 100;
   backdrop-filter: blur(10px);
+}
+
+.subtitle {
+  font-family: questa-sans, sans-serif;
+  font-size: 1.3rem;
 }
