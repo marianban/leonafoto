@@ -18,6 +18,21 @@ body {
   overflow-x: clip;
 }
 
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+.recaptcha-disclosure {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.recaptcha-disclosure a {
+  color: inherit;
+  text-decoration: underline;
+}
+
 a {
   color: white;
 }

@@ -39,13 +39,13 @@ footer label {
   margin-bottom: 1rem;
 }
 
-.footer__item.write-me {
+/* .footer__item.write-me {
   min-width: min(100%, 36rem);
 }
 
 .footer__item-form {
   width: min(100%, 36rem);
-}
+} */
 
 footer label input,
 footer label textarea {
@@ -75,7 +75,8 @@ footer label textarea:focus {
 }
 
 .footer__item-textarea {
-  min-height: 10rem;
+  min-height: calc(8 * 1.5em + 1.5rem);
+  line-height: 1.5;
   resize: vertical;
 }
 
@@ -148,6 +149,10 @@ footer button:active {
   color: rgb(255, 227, 227, 0.95);
 }
 
+.footer__item-form .recaptcha-disclosure {
+  color: rgb(255, 255, 255, 0.75);
+}
+
 @keyframes footer-spin {
   to {
     transform: rotate(360deg);
@@ -161,10 +166,12 @@ footer button:active {
     'menu map map write-me';
   grid-gap: 4rem;
   width: 100%;
+  grid-template-columns: minmax(0, 15rem) 1fr 1fr 2fr;
 }
 
 @media screen and (max-width: 768px) {
   .footer__items {
+    grid-template-columns: 1fr;
     grid-template-areas:
       'address'
       'contact'

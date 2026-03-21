@@ -47,3 +47,7 @@ button {
   margin-top: 0.5rem;
   font-size: 1.2rem;
 }
+
+.login-form__recaptcha-disclosure {
+  color: rgba(0, 0, 0, 0.65);
+}

@@ -129,7 +129,7 @@ export const ContactUs = () => {
           name="message"
           placeholder="Správa"
           className="footer__item-textarea"
-          autoComplete="on"
+          rows={8}
           disabled={isSubmitting}
           required
         ></textarea>
@@ -160,6 +160,27 @@ export const ContactUs = () => {
         role={submitState.type === 'error' ? 'alert' : 'status'}
       >
         {submitState.message}
+      </p>
+
+      <p className="recaptcha-disclosure">
+        Táto stránka je chránená službou reCAPTCHA a platia zásady ochrany
+        osobných údajov a podmienky používania spoločnosti Google.{' '}
+        <a
+          href="https://policies.google.com/privacy"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Ochrana súkromia
+        </a>{' '}
+        a{' '}
+        <a
+          href="https://policies.google.com/terms"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Podmienky používania
+        </a>
+        .
       </p>
     </form>
   );
