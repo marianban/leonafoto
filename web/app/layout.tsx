@@ -5,7 +5,8 @@ import Script from 'next/script';
 import authorPhoto from './(components)/WhoAmI/images/FotoAnnamaria2.jpg';
 
 const siteUrl = 'https://leonafoto.sk';
-const siteTitle = 'LeonaFoto | Fotenie detí, rodiny, tehotenské fotenie';
+const siteTitle =
+  'LeonaFoto | Fotenie detí, rodiny, tehotenské fotenie v Bratislave';
 const siteDescription =
   'Annamária Bánová, fotografka špecializujúca sa na fotografovanie detí, rodín a tehotných žien. Objavte krásu a emócie zachytené v jedinečných portrétoch a spomienkach, ktoré si budete ceniť navždy.';
 const siteImage = new URL(authorPhoto.src, siteUrl).toString();
@@ -37,6 +38,17 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: siteTitle,
   description: siteDescription,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   alternates: {
     canonical: '/',
   },
