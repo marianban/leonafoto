@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
 import { unlink } from 'fs/promises';
 import prisma from '../../lib/prisma';
+import { revalidateHomepage } from '../../lib/revalidateHomepage';
 
 type Data =
   | {
@@ -35,12 +36,6 @@ const deleteImageById = async (id: number) => {
   });
 };
 
-export const revalidate = async () => {
-  return fetch(
-    `${process.env.BASE_URL}/api/revalidate?secret=${process.env.REVALIDATE_SECRET}`
-  );
-};
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
@@ -56,7 +51,7 @@ export default async function handler(
 
       const imageId = Number(id);
       await deleteImageById(imageId);
-      await revalidate();
+      await revalidateHomepage();
 
       res.status(200).json({ message: 'Image deleted successfully' });
     } else {

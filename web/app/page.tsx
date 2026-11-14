@@ -13,6 +13,10 @@ import localFont from 'next/font/local';
 import { ClientMenu } from './ClientMenu';
 import Link from 'next/link';
 
+// Cache the generated homepage until a gallery mutation invalidates it.
+export const dynamic = 'force-static';
+export const revalidate = false;
+
 const bebasNeueFont = localFont({
   src: './(fonts)/BebasNeue-RegularSubset.woff2',
   weight: '400',

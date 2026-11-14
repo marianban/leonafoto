@@ -2,9 +2,11 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { jwtVerify } from 'jose';
+import { existsSync } from 'node:fs';
 
 export const config = {
   matcher: [
+    '/',
     '/admin',
     '/admin/(.*)',
     '/api/((?!login$|images$|contact-us$|random-images|revalidate$)[^?]*)',
@@ -15,6 +17,24 @@ export const config = {
 
 // This function can be marked `async` if using `await` inside
 export async function proxy(request: NextRequest) {
+  if (request.nextUrl.pathname === '/') {
+    const warmingUp =
+      process.env.HOMEPAGE_WARMUP === '1' &&
+      !existsSync('/tmp/leonafoto-homepage-ready');
+    const internalWarmup =
+      !!process.env.REVALIDATE_SECRET &&
+      request.headers.get('x-revalidate-secret') === process.env.REVALIDATE_SECRET;
+
+    if (warmingUp && !internalWarmup) {
+      return new NextResponse('Site is starting', {
+        status: 503,
+        headers: { 'Retry-After': '1', 'Cache-Control': 'no-store' },
+      });
+    }
+
+    return NextResponse.next();
+  }
+
   const cookie = request.cookies.get('auth_token')?.value;
 
   if (!cookie) {

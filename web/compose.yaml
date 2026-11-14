@@ -1,0 +1,39 @@
+services:
+  web:
+    image: leonafoto:local
+    build:
+      context: .
+      args:
+        # Public browser setting: changing this requires rebuilding the image.
+        NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ${NEXT_PUBLIC_RECAPTCHA_SITE_KEY:-replace-with-public-recaptcha-site-key}
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-3000}:3000"
+    environment:
+      # Server settings: supplied when the container starts, never during build.
+      SMTP_PASS: ${SMTP_PASS:-replace-with-smtp-password}
+      SMTP_HOST: ${SMTP_HOST:-smtp.example.com}
+      SMTP_USER: ${SMTP_USER:-sender@example.com}
+      RECAPTCHA_SECRET_KEY: ${RECAPTCHA_SECRET_KEY:-replace-with-recaptcha-secret}
+      AUTH_USERS: /app/data/users.json
+      AUTH_SECRET_KEY: ${AUTH_SECRET_KEY:-replace-with-a-long-random-secret}
+      AUTH_ISSUER: ${AUTH_ISSUER:-leonafoto}
+      AUTH_AUDIENCE: ${AUTH_AUDIENCE:-leonafoto}
+      DATABASE_URL: /app/data/dev.db
+      # Container path; the host image directory is configured in volumes below.
+      IMAGES_DIR: /app/images
+      CONTACT_US_TO: ${CONTACT_US_TO:-recipient@example.com}
+      # Required for startup warmup and upload/delete cache invalidation.
+      REVALIDATE_SECRET: ${REVALIDATE_SECRET:-replace-with-a-different-random-secret}
+      # BASE_URL and NEXT_PUBLIC_IMAGES_DOMAIN are unused by the current app.
+    volumes:
+      - type: bind
+        source: ${DATA_DIR:-./data}
+        target: /app/data
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${IMAGES_DIR:-./public/gallery}
+        target: /app/images
+        bind:
+          create_host_path: false

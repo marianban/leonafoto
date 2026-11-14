@@ -6,9 +6,13 @@ import { GalleryNextImages } from './GalleryNextImages';
 import { AlbumContainer } from './AlbumContainer';
 
 export const Gallery = async () => {
-  const images = await getImagesByCursor(12);
+  const placeholder = process.env.SKIP_GALLERY_PRERENDER === '1';
+  const images = placeholder ? [] : await getImagesByCursor(12);
   return (
-    <section className="gallery">
+    <section
+      className="gallery"
+      data-gallery-placeholder={placeholder ? 'true' : undefined}
+    >
       <div className="content">
         <h2 id="galeria">Galéria</h2>
         <p>

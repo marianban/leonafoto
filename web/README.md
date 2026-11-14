@@ -1,34 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# LeonaFoto
 
-## Getting Started
+Next.js site using Node.js 26 Alpine, SQLite, and uploaded images on disk.
 
-First, run the development server:
+## Development
 
-```bash
-npm run dev
-# or
-yarn dev
+From `web`, configure `.env.local`, then run `npm ci` and `npm run dev`.
+
+## Docker
+
+From the repository root:
+
+```sh
+cp .env.example .env
+# Edit .env with your paths and credentials.
+docker compose up -d --build
+docker compose logs -f web
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `DATA_DIR` and `IMAGES_DIR` select existing host directories mounted at
+  `/app/data` and `/app/images`. They must be writable by UID/GID `1000:1000`.
+- Set `DATABASE_URL` and `AUTH_USERS` to container paths, such as
+  `file:/app/data/gallery.db` and `/app/data/users.json`. Database initialization
+  and migrations are manual.
+- `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` is a build argument; rebuild when it changes.
+  Server credentials and settings are runtime variables listed in Compose.
+- `REVALIDATE_SECRET` is required for startup warmup and gallery invalidation.
+  `BASE_URL` and `NEXT_PUBLIC_IMAGES_DOMAIN` are unused.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Builds render a placeholder without querying SQLite. Startup regenerates the
+cached homepage from mounted data; homepage requests receive 503 until ready.
+Uploads and deletions invalidate the page for regeneration on the next request.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+HTTP is exposed on port 3000 (`HTTP_PORT` overrides it). HTTPS is managed
+externally and is required for production browser login.

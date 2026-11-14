@@ -31,9 +31,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+sync-leonafoto.sh
 users.json
 public/gallery/*
 dev.db
