@@ -33,3 +33,13 @@ Uploads and deletions invalidate the page for regeneration on the next request.
 
 HTTP is exposed on port 3000 (`HTTP_PORT` overrides it). HTTPS is managed
 externally and is required for production browser login.
+
+## Image publishing
+
+Set the repository Actions **variable** `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` before
+the first run. Pushes to `main` publish `ghcr.io/marianban/leonafoto:0.0.1`,
+`0.0.2`, etc. You can also run **Publish Docker image** manually on `main`.
+Authentication uses the automatic `GITHUB_TOKEN`; no registry password is needed.
+
+Tags use the workflow run number: failed runs can leave gaps, and retries reuse
+the same tag. Images target Linux amd64. Runtime secrets stay on the deployment host.
