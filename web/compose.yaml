@@ -1,12 +1,10 @@
 services:
   web:
-    image: leonafoto:local
-    build:
-      context: .
-      args:
-        # Public browser setting: changing this requires rebuilding the image.
-        NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ${NEXT_PUBLIC_RECAPTCHA_SITE_KEY:-replace-with-public-recaptcha-site-key}
+    image: ghcr.io/marianban/leonafoto:0.0.1
     restart: unless-stopped
+    # Match the host group that owns dev.db and users.json (usually "users" on Synology).
+    group_add:
+      - "${DATA_GID:-100}"
     ports:
       - "${HTTP_PORT:-3000}:3000"
     environment:
@@ -28,12 +26,12 @@ services:
       # BASE_URL and NEXT_PUBLIC_IMAGES_DOMAIN are unused by the current app.
     volumes:
       - type: bind
-        source: ${DATA_DIR:-./data}
+        source: /volume1/docker/leonafoto/data
         target: /app/data
         bind:
           create_host_path: false
       - type: bind
-        source: ${IMAGES_DIR:-./public/gallery}
+        source: /volume1/docker/leonafoto/images
         target: /app/images
         bind:
           create_host_path: false
